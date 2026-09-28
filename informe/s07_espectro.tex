@@ -1,0 +1,40 @@
+\section{Del resultado analítico al espectro}
+\label{sec:espectro}
+
+Con la ecuación de los modos y la acción cuadrática de la sección anterior, obtener el espectro es cuestión de cuantizar, y el procedimiento es exactamente el de la sección~\ref{sec:GW-RG}. Vale la pena repasarlo con los pasos numerados para RG y UG, porque el punto es justamente que son los mismos.
+
+\subsection{Cuantización y normalización}
+\label{sec:normalizacion}
+
+Cada polarización, con la normalización de los tensores de polarización $e^\lambda_{ij}e^{\lambda'*}_{ij}=2\delta_{\lambda\lambda'}$, tiene la acción $S^{(2)}=\frac{\MP^2}{4}\sum_\lambda\int\dd\eta\,\frac{\dd^3k}{(2\pi)^3}\,a^2\big[|h_\lambda'|^2-k^2|h_\lambda|^2\big]$, y con la variable canónica $v_\lambda=a\MP h_\lambda/\sqrt2$ y una integración por partes,
+\begin{equation}
+S^{(2)}=\frac12\sum_\lambda\int\dd\eta\,\frac{\dd^3k}{(2\pi)^3}\Big[|v_\lambda'|^2-\Big(k^2-\frac{a''}{a}\Big)|v_\lambda|^2\Big].
+\label{eq:S2v}
+\end{equation}
+Es la acción de un campo escalar sin masa (sección~\ref{sec:inf-cuantico}), por lo que la cuantización es la estándar: cada $v_\lambda$ es un operador con la normalización de Wronskiano $v_\lambda v_\lambda^{*\prime}-v_\lambda^*v_\lambda'=i$, y se elige el vacío de Bunch--Davies, $v_\lambda\to\ee^{-ik\eta}/\sqrt{2k}$ en el pasado remoto, $k\gg aH$ \etq{S}. Nada de esto depende de que la teoría sea RG o UG: depende solo de \eqref{eq:S2TT}, que es la misma \emph{por hipótesis de la realización efectiva} (véase el párrafo sobre el estatus de la acción cuadrática, sección~\ref{sec:accion2}): la normalización absoluta del espectro depende de esa acción y no solo de la ecuación de movimiento.
+
+La normalización de los tensores de polarización merece una aclaración, porque un factor $2$ mal contado cambia la amplitud. La convención $e\cdot e=2$ es una decisión (hay otras razonables, como normalizar cada polarización a $1$), pero el observable no depende de ella siempre que se lo defina de manera consistente. Se define el espectro tensorial, como en la literatura \cite{martin14,baumann22}, a través de la varianza de la perturbación completa,
+\begin{equation}
+\langle h_{ij}h_{ij}\rangle=\int\dd\ln k\;P_T(k),\qquad
+P_T(k)=\frac{k^3}{2\pi^2}\;e^\lambda_{ij}e^{\lambda*}_{ij}\sum_\lambda|h_\lambda|^2=\frac{k^3}{2\pi^2}\;2\sum_\lambda|h_\lambda|^2,
+\label{eq:PTdef}
+\end{equation}
+donde el $2$ es el valor de $e\cdot e$. En términos de $v$, con $|h_\lambda|^2=2|v_\lambda|^2/(a^2\MP^2)$ y dos polarizaciones iguales, $P_T=4k^3|v|^2/(\pi^2a^2\MP^2)$. En de Sitter exacto esto da $\frac{2H^2}{\pi^2\MP^2}(1+k^2\eta^2)$, que tiende a la fórmula estándar \eqref{eq:PTRG}. Un dato de procedencia: en una versión anterior de los archivos de derivación del proyecto, la expresión de $P_t$ estaba escrita sin el factor $e\cdot e=2$ y habría dado la mitad del valor estándar; se detectó al fijar la normalización, se corrigió, y no afecta a ninguna ecuación numerada.
+
+\subsection{El espectro en UG}
+
+Como la ecuación de los modos y la acción cuadrática son las mismas, y la normalización y la condición inicial también, el espectro en UG es \emph{el mismo funcional del fondo} que en RG. Para de Sitter exacto, $H=\text{cte}$, la solución es analítica (sección~\ref{sec:inf-cuantico}). Para un fondo con $H$ variable, el resultado de slow-roll \eqref{eq:PTNLO} y su extensión a segundo orden \cite{martin14} valen sin cambios, evaluados con el $H$, el $\epsilon_1$ y el $\epsilon_2\equiv\dd\ln\epsilon_1/\dd N$ de UG en el instante en que el modo cruza el horizonte, $k=aH$:
+\begin{equation}
+P_T^{\rm UG}(k)=\frac{2H_{\rm UG}^2}{\pi^2\MP^2}\Big[1-2(C+1)\,\epsilon_1^{\rm UG}+\mathcal O(\epsilon^2)\Big]_{k=aH}.
+\label{eq:PTUG}
+\end{equation}
+Esta es la fórmula que los controles numéricos verifican (sección~\ref{sec:resultados}). Su consecuencia es que, a igual $k$, el cociente entre los espectros es aproximadamente
+\begin{equation}
+\frac{P_T^{\rm UG}}{P_T^{\rm RG}}\simeq\Big(\frac{H_{\rm UG}}{H_{\rm RG}}\Big)^2\,\frac{1-2(C+1)\epsilon_1^{\rm UG}}{1-2(C+1)\epsilon_1^{\rm RG}},
+\label{eq:cociente}
+\end{equation}
+donde cada $H$ y cada $\epsilon_1$ se evalúan en el momento del cruce del horizonte \emph{de su propio modelo}, que para un mismo $k$ ocurre en instantes ligeramente distintos. Como los espectros se comparan a igual $k$ comóvil, el cociente \eqref{eq:cociente} no es solo la diferencia de $H^2$ en un mismo $N$: incluye que cada modelo cruza el horizonte con un $H$ distinto. También la pendiente tensorial en UG es $n_T\simeq-2\epsilon_1^{\rm UG}$, con el $\epsilon_1$ de UG.
+
+\subsection{Lo que no se obtiene: la relación tensor-escalar}
+
+El espectro tensorial es solo la mitad de $r=P_T/P_\mathcal{R}$. La otra mitad, $P_\mathcal{R}$, exige el sector escalar de la teoría: en UG, además de la perturbación de $\lambda$ y de $Q$, el gauge está restringido por el vínculo (secciones~\ref{sec:ug} y \ref{sec:ug-literatura}), y en las derivaciones de \cite{leon22} se suponen hipótesis específicas (contenido de radiación, $\delta Q=0$). Este trabajo no las trata. Por lo tanto, lo que se presenta en las secciones siguientes son valores de $P_T$, no de $r$; y la afirmación $r=16\,\epsilon_1$ de \cite{piccirilli23} queda sin verificar en este informe (sección~\ref{sec:abiertos}).

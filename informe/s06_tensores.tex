@@ -1,0 +1,184 @@
+\section{Los modos tensoriales en UG}
+\label{sec:tensores}
+
+Esta es la parte analítica central del trabajo, y responde la segunda pregunta: ¿el vínculo unimodular, o la difusión $Q$, cambian la ecuación de las ondas gravitacionales sobre el fondo cosmológico de la sección anterior? Se deriva la ecuación de dos maneras independientes: a partir de las ecuaciones de campo (secciones~\ref{sec:tt-geometria} a \ref{sec:tt-ecuacion}) y a partir de la acción a segundo orden (sección~\ref{sec:accion2}), y se controla qué papel juega el multiplicador $\lambda$ en cada una.
+
+\subsection{La perturbación y su gauge}
+
+Se perturba la métrica de fondo \eqref{eq:FLRW} con un tensor TT, con $g_{00}=-1$, $g_{0i}=0$ y
+\begin{equation}
+g_{ij}=a^2\,(\delta_{ij}+h_{ij}),\qquad h_{ii}=0,\qquad\partial_ih_{ij}=0,
+\label{eq:hijbis}
+\end{equation}
+que es la misma \eqref{eq:hij} de la sección~\ref{sec:GW-RG}. Fabris y colaboradores \cite{fabris22} usan como variable la perturbación de la métrica sin factorizar $a^2$, $\hat h_{ij}\equiv\delta g_{ij}=a^2h_{ij}$. Se trabaja con ambas convenciones en paralelo, y se traduce entre ellas en la sección~\ref{sec:tt-ecuacion}. Cada modo de Fourier se escribe como $h_{ij}=\sum_\lambda\int\frac{\dd^3k}{(2\pi)^3}h^\lambda_k(t)\,e^\lambda_{ij}(\mathbf k)\,\ee^{i\mathbf k\cdot\mathbf x}$, con los tensores de polarización constantes.
+
+Una pregunta previa es si hay una elección de gauge que hacer, porque las perturbaciones escalares de UG tienen un gauge restringido por el vínculo, como se comentó en la sección~\ref{sec:ug-literatura}. Para los tensores no la hay. Bajo un cambio de coordenadas infinitesimal $x^\mu\to x^\mu+\xi^\mu$, la perturbación de la métrica cambia por la derivada de Lie de la métrica de fondo,
+\begin{equation}
+\delta g_{ij}\ \to\ \delta g_{ij}-\mathcal L_\xi\bar g_{ij},\qquad
+\mathcal L_\xi\bar g_{ij}=2a\dot a\,\xi^0\,\delta_{ij}+a^2\big(\partial_i\xi_j+\partial_j\xi_i\big).
+\label{eq:gauge}
+\end{equation}
+Descomponiendo $\xi_i=\partial_i\xi+\xi^V_i$ con $\partial_i\xi^V_i=0$, el lado derecho contiene solo partes proporcionales a $\delta_{ij}$ y a $\partial_i\partial_j\xi$ (escalares) y a $\partial_{(i}\xi^V_{j)}$ (vectoriales): \emph{no tiene parte TT}. Por lo tanto $h_{ij}$ es invariante de gauge a primer orden \etq{P; coincide con \cite{bengochea23,fabris22}}, y no hay ninguna elección de gauge que hacer para los tensores. La restricción adicional de UG a transformaciones con $\nabla_a\xi^a=0$ no afecta a este argumento.
+
+\subsection{El vínculo a primer orden}
+
+El vínculo \eqref{eq:vinculo} exige $\sqrt{-g}=f$. Para la perturbación \eqref{eq:hijbis}, la variación del volumen a primer orden es $\delta\sqrt{-g}=\tfrac12a^3h_{ii}$, que es \emph{idénticamente cero} por la ausencia de traza \etq{P}. El vínculo se cumple sin imponer ninguna condición sobre $h_{ij}$: no restringe los tensores ni les quita grados de libertad. Es la observación que hacen \cite{fabris22} (``ya está codificada en la condición de tener modos puramente tensoriales''), \cite{basak16} y \cite{cho15}, y es el primer sentido en que ``el vínculo no toca a los tensores''.
+
+\subsection{La geometría linealizada}
+\label{sec:tt-geometria}
+
+Para obtener la ecuación de campo hay que calcular la curvatura a primer orden en $h_{ij}$. Como $\mathrm{tr}\,h=0$, $\delta\ln\sqrt\gamma=\mathcal O(h^2)$, y los símbolos de Christoffel a primer orden son
+\begin{equation}
+\Gamma^0{}_{ij}=a^2\Big[H(\delta_{ij}+h_{ij})+\tfrac12\dot h_{ij}\Big],\qquad
+\Gamma^i{}_{0j}=H\delta_{ij}+\tfrac12\dot h_{ij},\qquad
+\Gamma^i{}_{jk}=\tfrac12\big(\partial_jh_{ik}+\partial_kh_{ij}-\partial_ih_{jk}\big).
+\label{eq:Gammah}
+\end{equation}
+Sustituyéndolos en $R_{ij}=\partial_\mu\Gamma^\mu_{ij}-\partial_j\Gamma^\mu_{i\mu}+\Gamma^\mu_{\mu\lambda}\Gamma^\lambda_{ij}-\Gamma^\mu_{j\lambda}\Gamma^\lambda_{i\mu}$ (el desarrollo término a término está en el Apéndice~\ref{ap:algebra}) se obtiene \etq{P}
+\begin{equation}
+R_{ij}=a^2(\dot H+3H^2)(\delta_{ij}+h_{ij})+\tfrac12a^2\big(\ddot h_{ij}+3H\dot h_{ij}\big)-\tfrac12\nabla^2h_{ij}.
+\label{eq:Rijh}
+\end{equation}
+Las componentes $R_{00}$, $R_{0i}$ y el escalar $R$ \emph{no} se perturban a primer orden: $R_{0i}=0$ por la transversalidad, y en el resto solo aparece $\mathrm{tr}\,h=0$. Con $g^{ik}=a^{-2}(\delta_{ik}-h_{ik})$, el tensor de Einstein en forma mixta queda
+\begin{equation}
+G^i{}_j=-(2\dot H+3H^2)\,\delta^i_j+\tfrac12\Big(\ddot h_{ij}+3H\dot h_{ij}-\frac{\nabla^2h_{ij}}{a^2}\Big).
+\label{eq:GTT}
+\end{equation}
+El primer sumando es el del fondo, \eqref{eq:Gfondo}; el segundo es lo que agrega la perturbación. Es un resultado estándar de RG; se derivó de nuevo aquí porque se usará con la ecuación de UG, que tiene un término más.
+
+\subsection{La ecuación de los modos}
+\label{sec:tt-ecuacion}
+
+Se perturba la ecuación de campo \eqref{eq:EinsteinUG} en forma mixta a primer orden,
+\begin{equation}
+\delta G^i{}_j+\delta\lambda\,\delta^i_j=\kap\,\delta T^i{}_j.
+\label{eq:pert}
+\end{equation}
+Hay que examinar dos cosas. Primero, $\delta\lambda$: como $\lambda$ es un escalar (por \eqref{eq:Qdef}, $\lambda=\Lambda_0+\kap Q$), su perturbación $\delta\lambda\,\delta^i_j$ es un tensor \emph{puramente proporcional a la delta de Kronecker}, es decir, es pura traza, y desaparece al proyectar sobre la parte TT. Esto es lo que hace, en el nivel de las ecuaciones de campo, que $Q$ no pueda afectar a los tensores. Segundo, la materia: para un inflatón, $T^i{}_j=\partial^i\phi\,\partial_j\phi-\delta^i_j[\ldots]$, y como $\partial_i\phi$ es una perturbación escalar de primer orden, el producto $\partial^i\phi\,\partial_j\phi$ es de segundo orden; el resto es proporcional a $\delta^i_j$. Para un fluido perfecto ocurre lo mismo, porque la velocidad $u^i$ es de primer orden. De modo que \etq{P, S}
+\begin{equation}
+\delta T^i{}_j\big|_{\rm TT}=0.
+\label{eq:TTmateria}
+\end{equation}
+Esto es un supuesto sobre la materia (que tiene la forma estándar, sin tensión anisotrópica a primer orden), y se discute en la sección~\ref{sec:supuestos}.
+
+Con esto, al restar el fondo de la ecuación, los términos proporcionales a $\delta^i_j$ se cancelan \emph{exactamente} por la ecuación de fondo $(ij)$ de \eqref{eq:FriedUG}, cualquiera sea $\Lb(t)$. Queda
+\begin{equation}
+\boxed{\;\ddot h_{ij}+3H\dot h_{ij}-\frac{\nabla^2h_{ij}}{a^2}=0\;}
+\label{eq:modo}
+\end{equation}
+y en Fourier,
+\begin{equation}
+\boxed{\;\ddot h_k+3H\dot h_k+\frac{k^2}{a^2}\,h_k=0\;}
+\label{eq:modok}
+\end{equation}
+Es exactamente la ecuación de RG. La ecuación con $\Lambda$ fija en RG se deriva con los mismos pasos, sustituyendo $\Lb\to\Lambda$, y da lo mismo. \emph{La única diferencia entre UG y RG es qué función $H(t)$ entra en \eqref{eq:modok}}: la que resuelve \eqref{eq:H2UG}--\eqref{eq:HdotUG} en UG, la que resuelve las ecuaciones de RG en RG. Ese es el sentido preciso de la frase ``$Q$ entra en los tensores solo a través de $H(t)$''.
+
+Conviene tener la ecuación en otras variables, porque se usarán. En tiempo conforme y con la variable canónica $v_k\equiv a\,h_k$,
+\begin{equation}
+h_k''+2\mathcal H\,h_k'+k^2h_k=0,\qquad v_k''+\Big(k^2-\frac{a''}{a}\Big)v_k=0.
+\label{eq:modoconf}
+\end{equation}
+La velocidad de propagación es $c_T=1$, porque el coeficiente de $k^2$ es $1$. En la variable de Fabris et al., $h=\hat h/a^2$, con $\dot h=(\dot{\hat h}-2H\hat h)/a^2$ y $\ddot h=(\ddot{\hat h}-4H\dot{\hat h}-2\dot H\hat h+4H^2\hat h)/a^2$, la ecuación es
+\begin{equation}
+\ddot{\hat h}_k-H\dot{\hat h}_k-2(\dot H+H^2)\hat h_k+\frac{k^2}{a^2}\hat h_k=0,
+\label{eq:fabris}
+\end{equation}
+que tiene la forma de la Ec.~(37) de \cite{fabris22} \etq{P, C}. Que su ecuación parezca distinta de \eqref{eq:modok} a primera vista se debe solo a la definición de la variable. Finalmente, en el tiempo unimodular $T$ ($\dd T=a^3\dd t$, $H=a^2a_T$), la ecuación se escribe
+\begin{equation}
+h_{TT}+6\,\frac{a_T}{a}\,h_T+\frac{k^2}{a^8}\,h=0,
+\label{eq:modoT}
+\end{equation}
+que es la misma física con otra coordenada temporal: el vínculo $\sqrt{-g}=f$ (con $f=a^3$ en tiempo cósmico y $f=1$ en tiempo unimodular) no cambia nada por sí mismo.
+
+\paragraph{Cómo leer la ecuación.} La \eqref{eq:modok} es un oscilador con frecuencia $k/a$ y una fricción $3H$ (``fricción de Hubble''). Para modos mucho más largos que el horizonte, $k\ll aH$, el término de gradiente se desprecia, queda $\ddot h+3H\dot h=0$ y las soluciones son $h=c_1+c_2\int\dd t/a^3$: una constante y un modo que decae si $a$ crece \etq{P}. En otras palabras, fuera del horizonte $h_k$ se congela. Ese es el motivo por el que se espera que $P_T$ quede fijado en el cruce del horizonte y dependa de $H$ en ese instante.
+
+\paragraph{Consistencia con la no conservación.} Falta comprobar que la ecuación no entra en conflicto con $\nabla_aT^{ab}=\nabla^bQ$ para las componentes espaciales. Para $b=j$ y a primer orden en la parte TT, $\nabla_aT^a{}_j=\partial_jp+\Gamma^\mu_{\mu k}T^k{}_j-\Gamma^\lambda_{\mu j}T^\mu{}_\lambda$; como $\Gamma^\mu_{\mu k}=\partial_k\ln\sqrt\gamma=0$, $T^0{}_k=0$ y $\Gamma^k_{kj}p=0$, se anula, igual que $\partial_jQ=0$ \etq{P}. La no conservación no impone ninguna condición sobre los modos TT.
+
+\subsection{La acción cuadrática y el vínculo a segundo orden}
+\label{sec:accion2}
+
+La derivación anterior usa las ecuaciones de campo. Se la contrasta ahora con otra a partir de la acción, y esa ruta tiene además un interés propio: es donde el vínculo tiene la oportunidad de actuar sobre los tensores, porque a segundo orden en $h$ la variación del volumen \emph{no} es cero.
+
+\paragraph{El vínculo a segundo orden.} Con $M\equiv\delta+h$, $\sqrt{\det M}=\exp[\tfrac12\mathrm{tr}\ln(1+h)]=1-\tfrac14h_{ij}^2+\mathcal O(h^3)$. Con $g_{00}=-1$ y $f=a^3$ (tiempo cósmico),
+\begin{equation}
+\sqrt{-g}-f=-\tfrac14a^3h_{ij}^2\neq0.
+\label{eq:vinculo2}
+\end{equation}
+El vínculo exige que algo compense esa diferencia de segundo orden; en la acción lo hace el multiplicador, con un término
+\begin{equation}
+S_\lambda^{(2)}=-\frac{1}{\kap}\,\Lb\,\big(\sqrt{-g}-f\big)=+\frac{\Lb}{4\kap}\,a^3h_{ij}^2
+\label{eq:Slambda2}
+\end{equation}
+\etq{P}, donde se usó $\lambda=\Lb+\delta\lambda$ y que el producto de $\delta\lambda$ con la parte de primer orden del volumen se anula para TT (sección anterior).
+
+\paragraph{La parte de Einstein--Hilbert.} En la forma ADM con lapse $N=1$ (salvo un término de borde), la acción de Einstein--Hilbert es $S_{EH}=\frac{1}{2\kap}\int\sqrt\gamma\,[{}^{(3)}R+K_{ij}K^{ij}-K^2]$ \etq{E}, con $K^i{}_j=H\delta^i_j+\tfrac12(M^{-1}\dot h)_{ij}$ la curvatura extrínseca. Con $\mathrm{tr}(M^{-1}\dot h)=\tfrac{\dd}{\dd t}\ln\det M=-\tfrac12\tfrac{\dd}{\dd t}h_{ij}^2$ resulta
+\begin{equation}
+K=3H-\tfrac14\tfrac{\dd}{\dd t}h_{ij}^2,\qquad K^i{}_jK^j{}_i-K^2=-6H^2+H\tfrac{\dd}{\dd t}h_{ij}^2+\tfrac14\dot h_{ij}^2
+\label{eq:Kh}
+\end{equation}
+a orden $h^2$ \etq{P}. Multiplicando por $\sqrt\gamma=a^3(1-\tfrac14h_{ij}^2)$ e integrando por partes el término $a^3H\,\tfrac{\dd}{\dd t}h_{ij}^2\to-(3a^3H^2+a^3\dot H)h_{ij}^2$,
+\begin{equation}
+\sqrt\gamma\,(K_{ij}K^{ij}-K^2)\simeq a^3\Big[-6H^2-\big(\tfrac32H^2+\dot H\big)h_{ij}^2+\tfrac14\dot h_{ij}^2\Big].
+\label{eq:KKh}
+\end{equation}
+El término de gradiente viene de $\sqrt\gamma\,{}^{(3)}R$; su forma estándar es $-\tfrac14a(\partial_kh_{ij})^2$ \etq{E}, y \emph{no se derivó aquí}: su coeficiente queda fijado por consistencia con la ecuación de campo \eqref{eq:modo}, que sí se derivó, y sigue pendiente de contrastarlo con la literatura estándar.
+
+\paragraph{La materia.} Para un inflatón homogéneo el lagrangiano evaluado en el fondo es $L_m=p$, de modo que $\sqrt{-g}\,L_m=a^3(1-\tfrac14h_{ij}^2)\,p$, y a segundo orden
+\begin{equation}
+S_m^{(2)}\supset-\tfrac14a^3\,p\,h_{ij}^2\qquad\etq{P, S}
+\label{eq:Sm2}
+\end{equation}
+(bajo el mismo supuesto que en \eqref{eq:TTmateria}: la materia tiene su forma estándar).
+
+\paragraph{La cancelación.} Los términos sin derivadas de $h_{ij}$ provienen entonces de tres lugares: la parte cinemática de Einstein--Hilbert \eqref{eq:KKh}, la presión de la materia \eqref{eq:Sm2} y el vínculo \eqref{eq:Slambda2}. Sumándolos, con el factor $1/2\kap$ que corresponde a \eqref{eq:KKh},
+\begin{equation}
+\frac{a^3h_{ij}^2}{4\kap}\Big[-3H^2-2\dot H-\kap p+\Lb\Big]=0.
+\label{eq:cancel}
+\end{equation}
+Este corchete se anula por la ecuación de fondo $(ij)$ de \eqref{eq:FriedUG}, $2\dot H+3H^2=-\kap p+\Lb$ \etq{P}. Aquí está el punto: $\Lb(t)=\Lambda_0+\kap Q(t)$ \emph{entra} en la cuenta a través de \eqref{eq:Slambda2} y se cancela con el resto, de modo que no queda ningún ``término de masa'' para los tensores. Si el vínculo a segundo orden no hubiera aportado su término (por ejemplo, si el término del multiplicador se hubiese ignorado en esta cuenta), el corchete de \eqref{eq:cancel} \emph{no} se habría anulado y la ecuación de los modos habría tenido una masa efectiva $\propto\Lb$. Esto muestra que \eqref{eq:Slambda2} no es un detalle: es necesario para el resultado. En RG con $\Lambda$ la cuenta es idéntica con $\Lb\to\Lambda$.
+
+\paragraph{La acción cuadrática.} Queda entonces solo la parte con derivadas,
+\begin{equation}
+S^{(2)}_{TT}=\frac{\MP^2}{8}\int\dd t\,\dd^3x\,\Big[a^3\dot h_{ij}\dot h_{ij}-a\,(\partial_kh_{ij})^2\Big],
+\label{eq:S2TT}
+\end{equation}
+que es \emph{idéntica} a la de RG, \eqref{eq:S2RG}. Su ecuación de movimiento es $a^3\ddot h_{ij}+3a^2\dot a\,\dot h_{ij}-a\nabla^2h_{ij}=0$, es decir \eqref{eq:modo}: las dos derivaciones coinciden. En tiempo conforme, \eqref{eq:S2TT} es
+\begin{equation}
+\frac{\MP^2}{8}\int\dd\eta\,\dd^3x\,a^2\big[(h_{ij}')^2-(\nabla h_{ij})^2\big],
+\label{eq:S2conf}
+\end{equation}
+que es exactamente la acción tensorial de la UG generalizada de Barvinsky y Kolganov (con curvatura espacial nula) \cite{barvinsky19}. Aquí es importante ser preciso sobre lo que la coincidencia respalda. El coeficiente cinético $\tfrac14a^3\dot h^2$ y la cancelación de la masa salen del álgebra de arriba; el coeficiente del gradiente no se derivó sino que se fijó por consistencia con \eqref{eq:modo}, de modo que la comparación de \eqref{eq:S2TT} con la ecuación de campo no es independiente en ese coeficiente. Lo que la acción aporta de nuevo respecto de la ecuación de campo es la comprobación de que el vínculo a segundo orden no genera términos extra.
+
+\paragraph{Una observación sobre la parametrización.} Si en lugar de $g_{ij}=a^2(\delta+h)_{ij}$ se parametriza la perturbación como $g_{ij}=a^2(\ee^h)_{ij}$, entonces $\det\ee^h=\ee^{\mathrm{tr}\,h}=1$ y $\sqrt{-g}=a^3$ \emph{exactamente}: el vínculo se cumple a todo orden y el término \eqref{eq:Slambda2} no aparece. La diferencia entre ambas parametrizaciones es un término de segundo orden proporcional a la ecuación de fondo, de modo que la acción cuadrática en capa es la misma. Es un buen ejemplo de una elección que no cambia nada.
+
+\paragraph{Estatus de la acción cuadrática y de la normalización.} La ecuación de propagación \eqref{eq:modok} está bien respaldada, pero una ecuación homogénea no determina por sí sola la normalización cuántica absoluta del espectro: multiplicar la acción por una constante conserva la ecuación de movimiento y cambia la normalización canónica. Este trabajo no especifica una acción completa de materia que produzca la difusión, el coeficiente del gradiente se fijó por consistencia con la ecuación de campo, y «sin tensión anisótropa a primer orden» no equivale, sin más, a haber justificado la acción de materia a segundo orden, en particular cuando la materia intercambia energía con $Q$. Por eso la segunda ruta (la de la acción) no es totalmente independiente de la primera. La lectura correcta es: \eqref{eq:S2TT} se adopta como \emph{hipótesis explícita de la realización efectiva} usada, y la normalización de $P_T$ (ecuación \eqref{eq:PTdef}) depende de ella; para el alcance de esta entrega alcanza con declararlo, y una demostración manual completa desde una acción consistente queda como tarea pendiente (no se exige verificación simbólica a segundo orden). La parametrización exponencial de arriba aclara el vínculo no lineal: el multiplicador no elimina físicamente la violación del determinante de una métrica dada, sino que su término participa en la expansión variacional.
+
+\subsection{Resumen: dónde el vínculo modifica algo y dónde no}
+
+La tabla~\ref{tab:donde} recoge lo anterior en un solo lugar. Las dos primeras filas y la de $H^2$ dicen dónde el vínculo y la difusión cambian la teoría; el resto dice que, en el sector tensorial, no la cambian.
+
+\begin{table}[t]
+\centering\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{3.9cm}p{2.7cm}p{5.3cm}p{2.1cm}@{}}
+\toprule
+\textbf{Punto} & \textbf{¿Modifica?} & \textbf{Detalle} & \textbf{Ecs.}\\
+\midrule
+Estatus de $\lambda$ & \textbf{Sí} & Deja de ser parámetro de la acción: $\lambda=\Lambda_0+\kap Q$ & \eqref{eq:Qdef}\\
+Ecuación de la traza & \textbf{Sí} & Pasa a definir $\lambda$; $10\to9$ ecuaciones & \eqref{eq:lambdatraza}\\
+Conservación de $T_{ab}$ & \textbf{Sí (permite violarla)} & En RG es un teorema; en UG, una hipótesis & \eqref{eq:gradlambda}\\
+$H^2$ (Friedmann) & \textbf{Sí, si $Q\neq$ cte} & $Q(t)$ suma como fluido $w=-1$ de densidad variable & \eqref{eq:H2UG}\\
+$\dot H$ & \textbf{No} & $Q$ no entra & \eqref{eq:HdotUG}\\
+Vínculo a primer orden, TT & \textbf{No} & $\delta\sqrt{-g}=\tfrac12a^3h_{ii}=0$ & \\
+Gauge de $h_{ij}$ & \textbf{No} & TT invariante de gauge & \eqref{eq:gauge}\\
+Fuente de TT & \textbf{No} & $Q$ escalar; $\delta T^i{}_j|_{\rm TT}=0$ & \eqref{eq:pert}, \eqref{eq:TTmateria}\\
+\textbf{Ecuación de $h_k$} & \textbf{No} & Igual que RG, $c_T=1$ & \eqref{eq:modok}\\
+Vínculo a segundo orden, TT & \textbf{Sí, pero se cancela} & $-\tfrac14a^3h_{ij}^2$: requiere completar la métrica & \eqref{eq:vinculo2}, \eqref{eq:cancel}\\
+Acción cuadrática & \textbf{Hipótesis} & Se adopta la de RG & \eqref{eq:S2TT}\\
+\bottomrule
+\end{tabular}
+\caption{Dónde el vínculo unimodular modifica algo y dónde no.}
+\label{tab:donde}
+\end{table}
+
+El resultado analítico es la ecuación lineal TT de RG sobre el fondo considerado, bajo ausencia de tensión anisótropa TT. La acción cuadrática estándar y su normalización se adoptan como hipótesis efectivas. La expansión formal anterior no deriva una acción completa de materia con difusión variable.

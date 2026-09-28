@@ -1,0 +1,50 @@
+\section{Procedencia de las ecuaciones clave}
+\label{ap:procedencia}
+\sloppy
+
+La tabla siguiente enlaza cada ecuación importante de este informe (primera columna) con su lugar en \texttt{derivation.md} (la derivación del proyecto, cuya numeración se conserva por las referencias cruzadas), su etiqueta de procedencia, la función del código que la implementa y el control que la ejerce. Las etiquetas son: P, álgebra propia (a mano); C, tomada de un artículo; E, estándar de libro de texto (no contrastada con las fuentes salvo donde se indica); S, supuesto o decisión. Una ``ec.\ n'' entre paréntesis sin más es la numeración de \texttt{derivation.md}. ``---'' significa que no hay implementación o control específico.
+
+\small
+\begin{longtable}{@{}L{2.0cm}L{2.4cm}L{1.0cm}L{5.2cm}L{2.7cm}@{}}
+\toprule
+\textbf{Ec.} & \textbf{\texttt{derivation.md}} & \textbf{Etiq.} & \textbf{Código} & \textbf{Control}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Ec.} & \textbf{\texttt{derivation.md}} & \textbf{Etiq.} & \textbf{Código} & \textbf{Control}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\eqref{eq:SUG}, \eqref{eq:vinculo} & (1.1), (1.4) & C & --- & ---\\
+\eqref{eq:EinsteinUG} & (1.3) & C, P & --- & ---\\
+\eqref{eq:lambdatraza}, \eqref{eq:trazafree} & (1.5), (1.6) & P & --- & ---\\
+\eqref{eq:gradlambda} & (1.7) & P & --- & C3.1 (límite $Q$ cte)\\
+\eqref{eq:Qdef} & (1.8), (1.9) & C & \texttt{background.py::Q\_of\_N, Qdot} & ---\\
+\eqref{eq:FriedUG} & (2.6) & P & \texttt{hubble\_rg}, \texttt{hubble\_ug} & C3.1\\
+\eqref{eq:H2UG} & (2.7) & P & \texttt{hubble\_ug} & C3.1, C3.2\\
+\eqref{eq:HdotUG} & (2.8) & P & \emph{no se usa}; se contrasta & C3.2\\
+\eqref{eq:contUG} & Continuidad (Sec.~2.4) & P & --- & ---\\
+\eqref{eq:KGQ} & (2.9) & P, S & \texttt{quantities\_ug} & C3.1, C3.2\\
+\eqref{eq:Lambda0} & (2.11) & P & \texttt{lambda0\_from\_initial} & C3.1\\
+\eqref{eq:eps1UG} & (2.12) & P & --- (se calcula de $\dot H$) & C3.2\\
+\eqref{eq:slowUG} & (2.14) & P, S & \texttt{initial\_state} ($\dot\phi_i$) & ---\\
+\eqref{eq:Rijh}, \eqref{eq:GTT} & (3.4), (3.5) & P & --- & solo a mano\\
+\eqref{eq:modo}, \eqref{eq:modok} & (3.8), (3.9) & P & \texttt{modes.py::mode\_rhs} & C1.1, C1.2, C3.3\\
+\eqref{eq:modoconf} & (3.10), (3.11) & P & \texttt{mode\_rhs} & C1.1\\
+\eqref{eq:fabris} & (3.12) & P, C & --- & solo a mano (cierra O3 a mano)\\
+\eqref{eq:modoT} & (3.13) & P & --- & ---\\
+\eqref{eq:vinculo2} & (4.1) & P & --- & ---\\
+\eqref{eq:Slambda2}, \eqref{eq:cancel} & (4.5), (4.6) & P & \texttt{background.py::tensor\_mass\_term} & C3.5\\
+\eqref{eq:S2TT} & (4.7) & P, E & --- & solo a mano; gradiente E\\
+\eqref{eq:S2v} & (4.8) & P, S & --- & C1.1 (indirecto)\\
+\eqref{eq:modoX} & (no numerada; n1) & P & \texttt{mode\_rhs} & C3.3, C3.5\\
+\eqref{eq:modoN} & (no numerada; n2) & P & \texttt{mode\_rhs} & C3.3\\
+\eqref{eq:BDwkb} & (no numerada; n5) & E, S & \texttt{modes.py::bunch\_davies\_ic} & C1.1, C2\\
+\eqref{eq:PTdef}, \eqref{eq:PTcode} & fila P2 corregida; n4 & E, S & \texttt{modes.py::tensor\_power} & C1.1, C1.2\\
+\eqref{eq:PTRG}, \eqref{eq:PTNLO} & --- & E, C & \texttt{checks.py} (comparación) & C1.1--C1.3\\
+\eqref{eq:PTUG}, \eqref{eq:cociente} & --- & P (consecuencia) & --- & C3.4\\
+\end{longtable}
+\normalsize
+
+Las ecuaciones ``no numeradas'' n1, n2, n4 y n5 son pasos que el código usa y que no estaban escritos en \texttt{derivation.md}; se documentan en \texttt{PROVENANCE.md} (sec.~9.3) y se incorporan a este informe (secciones~\ref{sec:normalizacion} y~\ref{sec:numerico}). Queda pendiente decidir si se agregan a \texttt{derivation.md}.

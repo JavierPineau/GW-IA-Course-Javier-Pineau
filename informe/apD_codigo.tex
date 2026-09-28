@@ -1,0 +1,47 @@
+\section{Código, controles y reproducibilidad}
+\label{ap:codigo}
+\sloppy
+
+\subsection{Organización de los archivos}
+
+Todo el código está en la carpeta \texttt{codigo/} del proyecto, junto con los resultados y las figuras. El cálculo principal se ejecuta con \texttt{python3 run\_spectrum.py} (unos $3$ s) y produce \texttt{resultados/PT\_k.npz}, \texttt{PT\_k.csv} y las figuras rápidas de inspección. Los controles se ejecutan con \texttt{python3 checks.py} (aproximadamente un minuto), que escribe \texttt{resultados/checks.json}, o con \texttt{pytest}. Las figuras de este informe se generan con dos scripts: \texttt{make\_figures.py}, que lee exclusivamente los resultados guardados (no recalcula nada, lo verifica una prueba automática), y \texttt{make\_report\_figures.py}, que sí calcula el fondo de RG y de UG y un modo (porque esas trayectorias no se guardan). Cada figura viene acompañada de una tabla en CSV con exactamente los datos dibujados y de un archivo \texttt{manifest.json} con los hashes de entradas, del script y de las salidas.
+
+El archivo \texttt{explorador\_PT.ipynb} es un notebook autocontenido, generado a partir de los mismos archivos de código, que permite correr y graficar todo paso a paso; una prueba automática comprueba que el código embebido en el notebook sea idéntico al de los archivos. Las dependencias son \texttt{numpy}, \texttt{scipy} y \texttt{matplotlib} (versiones $1.26.4$, $1.13.1$ y $3.9.2$ con Python $3.12.3$).
+
+\subsection{Función por función}
+
+\begin{table}[h]
+\centering\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}p{5.1cm}p{9.2cm}@{}}
+\toprule
+\textbf{Función} & \textbf{Qué implementa}\\
+\midrule
+\texttt{background.py::rho\_and\_p} & $\rho$ y $p$ del inflatón, \eqref{eq:rhopphi}\\
+\texttt{hubble\_rg}, \texttt{hubble\_ug} & Friedmann en RG y en UG, \eqref{eq:FriedPhi}, \eqref{eq:H2UG}\\
+\texttt{lambda0\_from\_initial} & $\Lambda_0$ por \eqref{eq:Lambda0}\\
+\texttt{quantities\_rg}, \texttt{quantities\_ug} & Klein--Gordon (RG) y \eqref{eq:KGQ} (UG); $\dot H$ como derivada de Friedmann, \eqref{eq:HdotCode}\\
+\texttt{tensor\_mass\_term} & $X$ de \eqref{eq:Xdef}\\
+\texttt{initial\_state} & condiciones iniciales comunes; $\dot\phi_i$ de slow-roll\\
+\texttt{phi\_i\_for\_ug\_duration} & ajuste de $\phi_i$ para $N_f(\mathrm{UG})=100$\\
+\texttt{modes.py::mode\_rhs} & ecuación de modos con masa en $N$, \eqref{eq:modoN}\\
+\texttt{bunch\_davies\_ic} & condición de Bunch--Davies adiabática, \eqref{eq:BDwkb}\\
+\texttt{tensor\_power} & $P_T$ de \eqref{eq:PTcode}\\
+\texttt{run\_mode}, \texttt{run\_all\_modes} & integración de un modo y de todos\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Los controles}
+
+Los diez controles son funciones de \texttt{checks.py}: \texttt{check\_mutations\_are\_detected} (C0), \texttt{check\_de\_sitter\_exact} (C1.1), \texttt{check\_slow\_roll\_rg} (C1.2), \texttt{check\_planck\_phi2} (C1.3), \texttt{check\_convergence} (C2), \texttt{check\_conservative\_limit} (C3.1), \texttt{check\_background\_28} (C3.2), \texttt{check\_independent\_cosmic\_time} (C3.3), \texttt{check\_ug\_vs\_rg\_difference} (C3.4) y \texttt{check\_negative\_control} (C3.5). Cada una devuelve un veredicto con su tolerancia y el peor caso medido; las tolerancias, con su justificación, están en el docstring de cada función y se fijaron antes de correrlas. La batería completa de pruebas automáticas tiene $17$ pruebas: los diez controles, cinco de sincronía entre el notebook y el código, y dos de las figuras.
+
+Dos episodios del proceso de verificación merecen quedar por escrito, porque muestran cómo se detectaron problemas. Primero, el integrador independiente del control C3.3 \emph{falló} la primera vez, con una discrepancia de $\sim10^{58}$ en los modos de $k$ grande. La causa era un defecto de escala del propio control (la amplitud de $h$ llega a $\sim10^{-40}$, muy por debajo de la tolerancia absoluta, y el control de error del integrador dejaba de funcionar) y no un problema de física; se corrigió integrando $h$ normalizado, sin tocar la tolerancia, y el modo de menor $k$, donde el defecto no aparecía, ya coincidía a $1.4\times10^{-7}$. Segundo, al fijar la normalización de $P_T$ se detectó que la expresión de $P_t$ en los archivos de derivación del proyecto omitía el factor $e\cdot e=2$ y habría dado la mitad del valor estándar; se corrigió la fila correspondiente, y no cambia ninguna ecuación numerada.
+
+\subsection{Ampliaciones del 21 de septiembre}
+
+Se agregaron, sin modificar los resultados del potencial cuadrático (la regresión pasa): el interruptor de potencial (\texttt{config.py::params\_for}, \texttt{background.py::V}, \texttt{dV} con \texttt{potential="starobinsky"}); \texttt{compare\_potentials.py} (comparación a igual $N_*$, escribe \texttt{resultados/comparacion\_N\_star.csv} y \texttt{.json}); \texttt{make\_figures\_potenciales.py} (figuras 6 a 8 y \texttt{manifest\_potenciales.json}); la batería de ocho controles de Starobinsky (\texttt{python3 checks.py starobinsky}, escribe \texttt{resultados/starobinsky/checks.json}; el espectro a igual $k$ sale de \texttt{python3 run\_spectrum.py starobinsky}); y \texttt{symbolic\_checks.py} con cuatro comprobaciones de SymPy (S1 ecuación TT sobre FLRW; S2 identidad \eqref{eq:divT}; S3 cierre del fondo y equivalencia con $V_{\rm eff}$; S4 la restricción sobre $\delta Q$). No se conservan mutantes simbólicos reproducibles; las mutaciones disponibles son las numéricas de C0. Después se agregó el modelo de radiación con difusión Q \cite{leon22,piccirilli23}: \texttt{background\_leon.py} (reconstrucción desde $\epsilon_1(N)$, integración independiente de la continuidad y RG con inflatón reconstruido), \texttt{checks\_leon.py} (siete controles CL1--CL7, \texttt{resultados/leon/checks.json}), \texttt{run\_leon.py} (\texttt{resultados/leon/comparacion.csv}) y \texttt{make\_figures\_leon.py} (figuras 9 y 10, \texttt{manifest\_leon.json}); el recuento vigente es de 47 pruebas y se registra en REPRODUCCION.md.
+
+\subsection{Estado del registro del proyecto}
+
+Los resultados y controles de este informe están documentados en \texttt{PROVENANCE.md} (secciones 9 a 15). Los números y las afirmaciones están registrados en \texttt{numbers.json} (valores, entradas, referencias y datasets) y \texttt{claims.yaml} (afirmaciones y figuras), con un chequeo estructural mediante \texttt{validate\_provenance.py}: campos, claves enlazadas y existencia de archivos/funciones. Este validador no importa ni ejecuta productores, no verifica citas textuales ni certifica la verdad de las afirmaciones o la cobertura del HTML/PDF. El test de regeneración comprueba sincronía con resultados guardados, no una reproducción independiente del cálculo numérico. La ampliación del registro incluye controles, tablas, diagnósticos y datasets completos (AC-04). La carpeta de trabajo es un repositorio git local, sin remoto todavía. Las reproducciones y su entorno están documentados en REPRODUCCION.md; la publicación en GitHub queda a cargo del autor. Las auditorías independientes previas se consolidan en AUDITORIA\_CONSOLIDADA.md.
