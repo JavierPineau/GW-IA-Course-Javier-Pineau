@@ -1,0 +1,13 @@
+# Versiones con las que se corrió todo (Python 3.12.3)
+numpy==1.26.4
+scipy==1.13.1
+matplotlib==3.9.2
+sympy==1.14.0
+pytest==7.4.4
+pyyaml==6.0.1
+nbformat==5.10.4
+pandas==2.2.3      # tablas del notebook
+jupyterlab==4.2.5  # comando jupyter lab documentado en codigo/README.md
+nbconvert==7.16.4  # solo para ejecutar el notebook (jupyter nbconvert --execute)
+ipykernel==6.30.1  # idem
+pillow==10.4.0     # solo para inspeccionar figuras
