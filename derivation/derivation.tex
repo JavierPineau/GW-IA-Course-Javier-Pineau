@@ -1,0 +1,643 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{geometry}
+\geometry{margin=2.4cm}
+\usepackage{booktabs,array}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=NavyBlue,urlcolor=NavyBlue}
+\usepackage{microtype}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\linespread{1.07}
+\allowdisplaybreaks
+
+% ---------- encabezado y títulos ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}Apunte: gravedad unimodular y modos tensoriales}
+\fancyhead[R]{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\titleformat{\section}{\Large\bfseries\color{NavyBlue}}{\thesection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.6em}
+
+% ---------- macros ----------
+\newcommand{\MP}{M_{\rm P}}
+\newcommand{\propia}{{\bfseries\color{TealBlue}[PROPIA]}}
+\newcommand{\estandar}{{\bfseries\color{BurntOrange}[ESTÁNDAR]}}
+\newcommand{\supuesto}{{\bfseries\color{Plum}[SUPUESTO]}}
+\newcommand{\citado}[1]{{\bfseries\color{RoyalBlue}[CITADO #1]}}
+\newcommand{\sub}[2]{\par\medskip\noindent{\bfseries\color{NavyBlue}#1}\quad\textbf{#2}}
+
+% ---------- recuadros ----------
+\tcbset{cajabase/.style={breakable,enhanced,boxrule=0.6pt,arc=2pt,left=7pt,right=7pt,top=5pt,bottom=5pt,
+  before skip=10pt,after skip=10pt,fonttitle=\bfseries\small,parskip}}
+\newtcolorbox{enpalabras}[1][En palabras]{cajabase,colback=NavyBlue!5,colframe=NavyBlue!65,title={#1}}
+\newtcolorbox{llevarse}[1][Para llevarse]{cajabase,colback=OliveGreen!7,colframe=OliveGreen!70,title={#1}}
+\newtcolorbox{ojo}[1][Ojo]{cajabase,colback=BurntOrange!8,colframe=BurntOrange!80,title={#1}}
+\newtcolorbox{repaso}[1][Repaso de RG]{cajabase,colback=black!4,colframe=black!45,title={#1}}
+
+\title{\textbf{Gravedad unimodular y modos tensoriales}\\[0.3em]
+\large Apunte de derivación: Friedmann y ondas gravitacionales primordiales en UG, comparadas con RG}
+\author{Curso GW IA --- Entrega final}
+\date{20 de septiembre de 2026}
+
+\begin{document}
+\paragraph{Alcance efectivo de la difusión y la amplitud.}
+Una acción canónica covariante de materia conserva $T_{ab}$ al imponer su ecuación de movimiento y exige $Q$ constante. El caso variable añade transferencia fenomenológica. La acción TT estándar y el vacío de Bunch--Davies se adoptan como hipótesis efectivas; la ecuación lineal no fija su normalización. El vínculo a segundo orden exige completar la métrica o usar $g_{ij}=a^2(e^h)_{ij}$, ${\rm tr}\,h=0$; el multiplicador no absorbe una violación del determinante.
+
+\maketitle
+
+\begin{tcolorbox}[cajabase,colback=white,colframe=NavyBlue!65,title={El resultado en cinco líneas}]
+\begin{enumerate}[nosep,leftmargin=1.4em]
+\item \textbf{UG} es relatividad general con el \emph{volumen} del espacio-tiempo fijado. Consecuencia: $\Lambda$ deja de ser un parámetro de la teoría y pasa a ser una constante de integración; y, si se lo permite, la energía-impulso puede no conservarse, con una \textbf{difusión} $Q$.
+\item \textbf{Fondo.} $Q$ suma a $H^2$ como un fluido de ecuación de estado $w=-1$ pero con densidad variable; \emph{no} entra en $\dot H$.
+\item \textbf{Tensores.} La ecuación de los modos TT, $\ddot h_k+3H\dot h_k+k^2h_k/a^2=0$, y su acción cuadrática son \emph{idénticas} a RG. $Q$ entra solo a través de $H(t)$.
+\item \textbf{Falta:} cuantización y $P_t$ (P2), y el sector escalar, donde está el problema del factor $3^{3/2}$ y de $r=16\epsilon_1$ (P1).
+\item \textbf{Estado:} derivación manual complementada por cuatro controles simbólicos y cálculos de modos; ver el informe, secciones 6--8, y REPRODUCCION.md.
+\end{enumerate}
+\end{tcolorbox}
+
+\setcounter{section}{-1}
+\section{Antes de empezar}
+
+\sub{0.1}{Cómo leer este apunte.} Cada paso está etiquetado según de dónde sale:
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}l@{\hspace{1.2em}}L{11.6cm}@{}}
+\toprule
+\propia & Álgebra hecha en este documento, a mano. Verificada solo por los chequeos de consistencia de la Sec.~\ref{sec:chk} (no por código).\\
+\citado{X, Eq.~n} & Resultado tomado del paper \texttt{X} (ID de \texttt{PROVENANCE.md}) con el número de ecuación impreso en el PDF que leí. Lo releí contra el texto.\\
+\estandar & Resultado de libro de texto que uso tal cual y que \textbf{no} está respaldado por ninguna fuente leída en \texttt{PROVENANCE.md} (Mukhanov F1 y Baumann F2 figuran como no leídos). Pendiente de verificar contra F1/F2.\\
+\supuesto & Elección o hipótesis.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\Needspace{9\baselineskip}
+Y hay cuatro tipos de recuadro:
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}l@{\hspace{1.2em}}L{11.6cm}@{}}
+\toprule
+{\bfseries\color{NavyBlue}En palabras} & Qué se va a hacer y por qué, en lenguaje llano. Al principio de cada sección.\\
+{\bfseries\color{OliveGreen}Para llevarse} & Lo que hay que retener. Al final de cada sección; cada punto remite al paso etiquetado donde se obtuvo.\\
+{\bfseries\color{BurntOrange}Ojo} & Una advertencia, un límite o una fuente de confusión.\\
+{\bfseries\color{black}Repaso} & Ingredientes de RG que se dan por sabidos; etiquetados \estandar.\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Regla:} los recuadros azules y verdes \emph{no agregan resultados}; reexplican pasos que ya están etiquetados. Si un recuadro necesita un hecho que no sale de esos pasos, lo lleva con su propia etiqueta.
+
+\textbf{Dos formas de leerlo.} \emph{Rápida} (unos diez minutos): las Secs.~0.2 y 0.3, los recuadros verdes y las Secs.~5--6. \emph{Completa}: en orden; las cuentas largas (Sec.~3.4, Sec.~4.2) se pueden saltear si solo interesa el resultado, que se repite arriba y abajo de cada una.
+
+\sub{0.2}{Qué es la gravedad unimodular, en una página.}
+
+\begin{repaso}[Repaso de RG: lo mínimo que se usa]
+\begin{itemize}[nosep]
+\item \estandar\ La acción de RG es $S=\int d^4x\sqrt{-g}\,\frac{R-2\Lambda}{2\kappa}+S_m$. Variarla respecto de la métrica da $G_{ab}+\Lambda g_{ab}=\kappa T_{ab}$: diez ecuaciones. $\Lambda$ es un \emph{parámetro} fijo de la teoría.
+\item \estandar\ $G_{ab}\equiv R_{ab}-\tfrac12Rg_{ab}$ describe la geometría; $T_{ab}$ describe la materia. La identidad de Bianchi dice que $\nabla^aG_{ab}=0$ \emph{siempre}.
+\item \estandar\ Como $\Lambda$ es constante, Bianchi obliga a $\nabla^aT_{ab}=0$: en RG la conservación de la energía-impulso es un \emph{teorema}, no una hipótesis. (En UG se rehace esta cuenta en 1.5, con $\Lambda$ reemplazada por $\lambda(x)$.)
+\end{itemize}
+\end{repaso}
+
+La idea de UG, paso por paso:
+
+\begin{enumerate}
+\item \textbf{Se fija el volumen.} En lugar de dejar libre toda la métrica, se exige $\sqrt{-g}=f$, con $f$ una función \emph{dada} (el volumen fiducial). Ver (1.4). \citado{A3}
+\item \textbf{Se impone con un multiplicador de Lagrange} $\lambda(x)$ dentro de la acción, ec.~(1.1). \emph{Analogía (no es un paso de la derivación):} en un péndulo con varilla rígida, la tensión de la varilla es el multiplicador del vínculo ``largo fijo''. Nadie la elige; la determina el movimiento. Acá $\lambda$ hace ese papel para el vínculo ``volumen fijo''.
+\item \textbf{Ecuaciones.} Salen $G_{ab}+\lambda g_{ab}=\kappa T_{ab}$ y $\sqrt{-g}=f$, ecs.~(1.3)--(1.4), pero ahora $\lambda$ es una \emph{incógnita}. Tomando la traza, esa ecuación deja de ser una ecuación dinámica y solo \emph{define} $\lambda$ (1.5). Lo que queda como dinámica es la parte sin traza (1.6). \propia
+\item \textbf{$\Lambda$ deja de ser un parámetro.} Aplicando Bianchi a (1.3) se obtiene $\nabla_b\lambda=\kappa\nabla^aT_{ab}$ (1.7). Si la materia se conserva, $\lambda$ es constante y esa constante es una constante de \emph{integración}: $\Lambda_0$, que fijan las condiciones iniciales y no la acción. \propia
+\item \textbf{La energía del vacío no gravita directamente.} La ecuación sin traza (1.6) no cambia si $T_{ab}\to T_{ab}+c\,g_{ab}$ (porque $T\to T+4c$ y los $c$ se cancelan). \propia\ Esta es la motivación histórica de UG frente al problema de la constante cosmológica \estandar\ (contexto; Weinberg, B3, no leído; aparece como motivación en B5 y C4). \textbf{No lo resuelve}: sigue haciendo falta un valor de $\Lambda_0$ \citado{B6, solo abstract}.
+\item \textbf{La conservación ya no es automática.} Si se permite $\nabla_aT^{ab}\neq0$ aparece un escalar $Q(x)$ con $\nabla_aT^{ab}=\nabla^bQ$ y $\lambda=\Lambda_0+\kappa Q$ (1.8)--(1.9). Es la \emph{UG no conservativa}, o ``con difusión''. Su motivación física (discretización del espacio-tiempo, modificaciones no unitarias de la mecánica cuántica) está en E1 y E2, \citado{E1, solo abstract; E2, solo metadatos}.
+\end{enumerate}
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}L{3.6cm}L{5.5cm}L{6cm}@{}}
+\toprule
+& \textbf{RG} & \textbf{UG}\\
+\midrule
+$\Lambda$ & parámetro de la acción & constante de integración $\Lambda_0$ (más $\kappa Q$ si no hay conservación)\\
+Ecuación de la traza & ecuación dinámica & solo define $\lambda$ ($10\to9$ ecuaciones dinámicas)\\
+$\nabla_aT^{ab}=0$ & teorema (Bianchi) & hipótesis extra; sin ella, $\nabla_aT^{ab}=\nabla^bQ$\\
+Si $\nabla_aT^{ab}=0$ & --- & \textbf{idéntica a RG} con $\Lambda=\Lambda_0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{ojo}[Ojo: $\sqrt{-g}=f$ no es $\sqrt{-g}=1$]
+Muchos textos escriben ``$\sqrt{-g}=1$''. Eso es la misma condición pero en coordenadas donde $f=1$; en otras coordenadas, $f\neq1$ (A3, nota al pie 1 y Sec.~3.2). Por eso, en este apunte se trabaja en tiempo cósmico $t$ (donde $f=a^3$) y solo se traduce al tiempo unimodular al final (Sec.~3.8).
+\end{ojo}
+
+\sub{0.3}{El argumento completo, en un diagrama.} Cada caja remite a las ecuaciones donde se demuestra.
+
+\begin{center}
+\begin{tikzpicture}[
+  caja/.style={draw=NavyBlue!70,fill=NavyBlue!6,rounded corners=2pt,align=center,font=\footnotesize,inner sep=4pt,text width=3.7cm},
+  res/.style={draw=OliveGreen!75,fill=OliveGreen!9,rounded corners=2pt,align=center,font=\footnotesize,inner sep=4pt,text width=6.2cm},
+  pend/.style={draw=BurntOrange!85,fill=BurntOrange!8,dashed,rounded corners=2pt,align=center,font=\footnotesize,inner sep=4pt,text width=6.2cm},
+  flecha/.style={-{Stealth[length=2mm]},thick,NavyBlue!70}]
+\node[caja] (A) at (0,0) {\textbf{Acción UG}\\ EH + multiplicador $\lambda$\\ (1.1)};
+\node[caja] (B) at (5.5,0) {\textbf{Ecuaciones}\\ $G_{ab}+\lambda g_{ab}=\kappa T_{ab}$\\ $\sqrt{-g}=f$\\ (1.3), (1.4)};
+\node[caja] (C) at (11,0) {\textbf{Bianchi}\\ $\nabla_aT^{ab}=\nabla^bQ$\\ $\lambda=\Lambda_0+\kappa Q$\\ (1.8), (1.9)};
+\node[caja] (D) at (11,-2.7) {\textbf{Fondo FLRW}\\ $3M_{\rm P}^2H^2=\rho+Q+\Lambda_0M_{\rm P}^2$\\ $\dot H=-\dot\phi^2/2M_{\rm P}^2$\\ (2.7), (2.8)};
+\node[caja] (E) at (5.5,-2.7) {\textbf{Perturbación TT}\\ $\delta\lambda$ es traza\\ $\delta T^i{}_j|_{\rm TT}=0$\\ (3.6), (3.7)};
+\node[res] (F) at (8.25,-5.3) {\textbf{Ecuación de los modos TT}\\ $\ddot h_k+3H\dot h_k+\dfrac{k^2}{a^2}h_k=0$ \quad (3.9)\\ igual que en RG; $Q$ entra solo por $H(t)$};
+\node[pend] (G) at (8.25,-7.4) {\textbf{Espectro} $P_t$ (informe, sec. 7)\\ el de RG evaluado con el $H(t)$ de UG};
+\draw[flecha] (A) -- (B);
+\draw[flecha] (B) -- (C);
+\draw[flecha] (C) -- (D);
+\draw[flecha] (B) -- (E);
+\draw[flecha] (E) -- (F);
+\draw[flecha] (D) -- node[right,font=\scriptsize]{$H(t)$} (F);
+\draw[flecha] (F) -- (G);
+\end{tikzpicture}
+\end{center}
+
+\sub{0.4}{Decisiones, convenciones y glosario.}
+
+\textbf{Decisiones que tomaste:} (i) convención de la perturbación: \emph{ambas en paralelo} (la estándar y la de Fabris et al.); (ii) tiempo: $t$ cósmico, con nota sobre el tiempo unimodular; (iii) \emph{sí} incluir el segundo orden (acción cuadrática con el multiplicador de Lagrange); (iv) formulación: multiplicador de Lagrange + volumen fiducial.
+
+\textbf{Convenciones.} Firma $(-,+,+,+)$, $c=\hbar=1$, $\kappa\equiv8\pi G=1/\MP^2$. Espacio plano. Índices latinos espaciales; $h_{ij}^2\equiv h_{ij}h_{ij}$ (suma sobre índices repetidos). Punto $=d/dt$ (tiempo cósmico); prima $=d/d\eta$ con $dt=a\,d\eta$; $\mathcal H=a'/a$.
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}L{2.6cm}L{12.5cm}@{}}
+\toprule
+\textbf{Símbolo} & \textbf{Qué es}\\
+\midrule
+$a(t)$, $H=\dot a/a$ & factor de escala y parámetro de Hubble\\
+$\epsilon_1=-\dot H/H^2$ & primer parámetro de flujo de Hubble; hay inflación si $\epsilon_1<1$ (Sec.~2.7)\\
+$\phi$, $V$, $\rho$, $p$ & inflatón, su potencial, densidad de energía y presión (2.5)\\
+$\lambda(x)$ & multiplicador de Lagrange del vínculo de volumen; en el fondo, $\bar\lambda(t)$\\
+$\Lambda_0$ & constante de integración; en RG haría de constante cosmológica\\
+$Q(x)$ & escalar de ``difusión'': $\nabla_aT^{ab}=\nabla^bQ$, $\lambda=\Lambda_0+\kappa Q$\\
+$f$, $\varepsilon_{abcd}$ & volumen fiducial (dado, no dinámico): $\sqrt{-g}=f$\\
+$h_{ij}$ & perturbación tensorial: $g_{ij}=a^2(\delta_{ij}+h_{ij})$, sin traza y transversal\\
+$\hat h_{ij}$ & la misma perturbación en la variable de Fabris et al.: $\hat h_{ij}=a^2h_{ij}$\\
+$e^\lambda_{ij}$, $h_k^\lambda$ & tensor de polarización y amplitud de cada modo $\mathbf k$ ($\lambda=+,\times$)\\
+$v_k$ & variable canónica ($v=a\MP h/\sqrt2$ en (4.8)) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\sub{0.5}{Alcance.} Se deriva: (1) Friedmann con inflatón en UG vs.\ RG; (2) la ecuación de $h_k$ en ambos casos; (3) dónde actúa el vínculo. \textbf{No} se deriva el espectro $P_t$, ni el sector escalar, ni la cuantización (Sec.~\ref{sec:pend}). Nada fue verificado con código.
+
+%=====================================================================
+\section{Marco de UG (multiplicador de Lagrange)}
+
+\begin{enpalabras}
+Esta sección fija las ecuaciones de UG y responde: ¿qué se gana y qué se pierde respecto de RG? Se parte de la acción (1.1), se obtienen las ecuaciones de campo (1.3)--(1.4), y se muestra que (i) la traza deja de ser dinámica y solo define $\lambda$, y (ii) la identidad de Bianchi convierte la conservación de la energía-impulso en una \emph{elección} que, si no se hace, introduce $Q$. Nada de esta sección depende todavía de cosmología.
+\end{enpalabras}
+
+\sub{1.1}{Acción.} \citado{A3, Eq.~(2.1)} (equivalente a A1 Eq.~(1) y B5 Eq.~(1)):
+\begin{equation}
+S=\int\frac1{2\kappa}\Big[R\,\epsilon^{(g)}_{abcd}-2\lambda\big(\epsilon^{(g)}_{abcd}-\varepsilon_{abcd}\big)\Big]+S_m[g,\Psi]\tag{1.1}
+\end{equation}
+$\varepsilon_{abcd}$ es una 4-forma de volumen \emph{fiducial dada} (no dinámica) y $\lambda(x)$ el multiplicador de Lagrange. En coordenadas: $\epsilon^{(g)}=\sqrt{-g}\,d^4x$ y $\varepsilon=f\,d^4x$. \emph{Lectura:} el primer término es Einstein--Hilbert; el segundo penaliza cualquier diferencia entre el volumen de la métrica y el volumen dado.
+
+\sub{1.2}{Tensor energía-impulso.} \citado{A3, Eq.~(2.8)}
+\begin{equation}
+T_{ab}=-\frac2{\sqrt{-g}}\frac{\delta S_m}{\delta g^{ab}}\tag{1.2}
+\end{equation}
+
+\sub{1.3}{Ecuaciones de campo.} Variar respecto de $g^{ab}$, $\lambda$ y $\Psi$ da \citado{A3, Eqs.~(2.5)--(2.7)}:
+\begin{align}
+G_{ab}+\lambda(x)\,g_{ab}&=\kappa\,T_{ab}\tag{1.3}\\
+\epsilon^{(g)}_{abcd}=\varepsilon_{abcd}\ &\Longleftrightarrow\ \sqrt{-g}=f\tag{1.4}
+\end{align}
+(y $\delta S_m/\delta\Psi=0$ para la materia). Ojo: $\sqrt{-g}=f$ \textbf{no} es ``$\sqrt{-g}=1$'' salvo que se elijan coordenadas con $f=1$ (A3, nota al pie 1 y Sec.~3.2).
+
+\sub{1.4}{Traza.} \propia, reproduce \citado{A3, Eqs.~(2.9)--(2.10)}. Con $g^{ab}G_{ab}=-R$ y $g^{ab}g_{ab}=4$, la traza de (1.3) es $-R+4\lambda=\kappa T$, luego
+\begin{equation}
+\lambda=\frac{R+\kappa T}4\tag{1.5}
+\end{equation}
+y sustituyendo en (1.3):
+\begin{equation}
+R_{ab}-\tfrac14g_{ab}R=\kappa\big(T_{ab}-\tfrac14g_{ab}T\big)\tag{1.6}
+\end{equation}
+\emph{Lectura.} En RG con $\Lambda$ fijo, la traza $R=-\kappa T+4\Lambda$ es una ecuación con contenido dinámico. En UG la traza (1.5) \textbf{solo define} $\lambda$: se pierde una ecuación ($10\to9$).
+
+\sub{1.5}{No conservación.} \propia\ Aplicar $\nabla^a$ a (1.3) y usar Bianchi $\nabla^aG_{ab}=0$:
+\begin{equation}
+\nabla_b\lambda=\kappa\,\nabla^aT_{ab}\tag{1.7}
+\end{equation}
+Como $\lambda$ es un gradiente, $J_b\equiv\nabla^aT_{ab}$ es cerrado y localmente $J_b=\nabla_bQ$ (A3 lo obtiene también por invariancia bajo difeos de volumen fijo, Eqs.~(2.11)--(2.13), y alternativamente en su Sec.~2.2). \citado{A3, Eqs.~(2.13)--(2.15); A1, Eqs.~(5)--(6)}:
+\begin{align}
+\nabla_aT^{ab}&=\nabla^bQ\tag{1.8}\\
+\lambda&=\Lambda_0+\kappa\,Q(x)\tag{1.9}
+\end{align}
+con $\Lambda_0$ constante de integración. Equivalente: $\nabla_a\big(T^{ab}-g^{ab}Q\big)=0$ (1.10). $Q$ es un \textbf{escalar} por construcción.
+
+\smallskip\noindent\textbf{Dos casos} (A3 Sec.~3.1; B5; A1 tras Eq.~(6)):
+\begin{itemize}[nosep]
+\item \textbf{UG conservativa}, $\nabla_aT^{ab}=0$: $Q=$ cte, $\lambda=\Lambda_0$. Ecuaciones de RG con constante cosmológica $\Lambda_0$, que no está en la acción sino que es constante de integración.
+\item \textbf{UG no conservativa}: $Q(x)$ variable. Es el caso de A1 y A2.
+\end{itemize}
+
+\begin{llevarse}
+\begin{itemize}[nosep]
+\item UG es (1.3) + (1.4), con $\lambda$ como incógnita. \citado{A3}
+\item La traza solo define $\lambda$ (1.5): una ecuación dinámica menos. \propia
+\item La conservación de $T_{ab}$ deja de ser un teorema: Bianchi da $\nabla_b\lambda=\kappa\nabla^aT_{ab}$ (1.7). Por eso aparece $Q$, con $\lambda=\Lambda_0+\kappa Q$ (1.9). \propia
+\item $Q$ es un \emph{escalar}. Esto es lo que, en la Sec.~3, impide que afecte a los tensores.
+\item $Q$ constante $\Rightarrow$ RG exacta con $\Lambda=\Lambda_0$. Toda la novedad está en $Q(x)$ variable.
+\end{itemize}
+\end{llevarse}
+
+%=====================================================================
+\section{Fondo cosmológico: Friedmann en UG vs.\ RG}
+
+\begin{enpalabras}
+Primer efecto de $Q$: el \emph{fondo}. Se toma un universo homogéneo e isótropo con un inflatón, y se escriben las ecuaciones de (1.3) en ese caso. El resultado, a retener: $Q$ actúa como una densidad de energía extra, con presión $-Q$, que se suma a $H^2$. Como $\dot H$ solo ve $\rho+p$, y para $Q$ vale $\rho_Q+p_Q=0$, $Q$ \emph{no aparece} en $\dot H$. La cantidad que resume el efecto sobre inflación es $\epsilon_1=-\dot H/H^2$: al cambiar $H$ pero no $\dot H$, cambia $\epsilon_1$, y con ella todo lo que dependa de $H(t)$.
+\end{enpalabras}
+
+\sub{2.1}{Métrica y vínculo.} \propia\ Con $ds^2=-N^2dt^2+a^2d\mathbf x^2$, el vínculo (1.4) es
+\begin{equation}
+\sqrt{-g}=N(t)\,a(t)^3=f(t)\tag{2.1}
+\end{equation}
+Dada $f$, el vínculo determina el lapse: $N=f/a^3$. \citado{A3, Sec.~3.2, Eqs.~(3.10)--(3.12)}: como (1.3) y (1.4) son covariantes, dada una solución en tiempo cósmico ($N=1$) basta reexpresar el volumen fiducial en esas coordenadas ($f=a^3$); es la \textbf{misma solución}, no otra. Con $N=1$:
+\begin{equation}
+ds^2=-dt^2+a^2\,d\mathbf x^2,\qquad f=a^3\tag{2.2}
+\end{equation}
+\supuesto\ (decisión ii) Trabajo en $t$ cósmico. La misma solución en la coordenada unimodular $T$ ($dT=a^3dt$, $\sqrt{-g}=1$) es \citado{A3, Eq.~(3.12)}:
+\begin{equation}
+ds^2=-a^{-6}\,dT^2+a^2\,d\mathbf x^2\tag{2.3}
+\end{equation}
+
+\sub{2.2}{Geometría.} \propia, resultado \estandar. Para (2.2): $\Gamma^0_{ij}=a\dot a\,\delta_{ij}$, $\Gamma^i_{0j}=H\delta^i_j$; $R_{00}=-3(\dot H+H^2)$, $R_{ij}=a^2(\dot H+3H^2)\delta_{ij}$, $R=6(\dot H+2H^2)$ y
+\begin{equation}
+G^0{}_0=-3H^2,\qquad G^i{}_j=-(2\dot H+3H^2)\,\delta^i_j\tag{2.4}
+\end{equation}
+
+\sub{2.3}{Materia: inflatón estándar.} \estandar\ $S_m=\int\sqrt{-g}\,[-\tfrac12(\partial\phi)^2-V(\phi)]$ da $T_{ab}=\partial_a\phi\,\partial_b\phi-g_{ab}\big[\tfrac12(\partial\phi)^2+V\big]$. En el fondo homogéneo:
+\begin{equation}
+\rho=\tfrac12\dot\phi^2+V,\quad p=\tfrac12\dot\phi^2-V,\quad\rho+p=\dot\phi^2,\quad T^0{}_0=-\rho,\quad T^i{}_j=p\,\delta^i_j\tag{2.5}
+\end{equation}
+
+\sub{2.4}{Friedmann en UG.} \propia\ Componentes mixtas de (1.3), con $\bar\lambda(t)=\Lambda_0+\kappa Q(t)$ (1.9). Componente $00$: $-3H^2+\bar\lambda=-\kappa\rho$. Componente $ij$: $-(2\dot H+3H^2)+\bar\lambda=\kappa p$. Es decir,
+\begin{equation}
+3H^2=\kappa\rho+\bar\lambda,\qquad 2\dot H+3H^2=-\kappa p+\bar\lambda\tag{2.6}
+\end{equation}
+Con (2.5):
+\begin{align}
+&\boxed{\,3\MP^2H^2=\tfrac12\dot\phi^2+V+Q+\Lambda_0\MP^2\,}\tag{2.7}\\
+&\boxed{\,\dot H=-\frac{\dot\phi^2}{2\MP^2}\,}\tag{2.8}
+\end{align}
+(2.8) sale de restar las dos ecuaciones (2.6): $2\dot H=-\kappa(\rho+p)$. \citado{A1, Eqs.~(9)--(10)} coinciden (con $\Lambda_*\equiv\Lambda_0$). \citado{A1, Eq.~(57)} subraya que la relación análoga en tiempo conforme ``is independent of $Q$ explicitly''.
+
+\smallskip\noindent\textbf{Continuidad.} \propia\ Derivar (2.7) y usar (2.8): $\dot\rho+\dot Q+3H(\rho+p)=0$, es decir $\dot\rho+3H(\rho+p)=-\dot Q$. \citado{A1, Eq.~(11)}. Consistente con (1.8): la componente $b=0$ da lo mismo (uso $\nabla_aT^{a0}=\dot\rho+3H(\rho+p)$ y $\nabla^0Q=-\dot Q$).
+
+\smallskip\noindent\textbf{$Q$ como fluido.} \propia\ De (1.10), $T^{ab}_{\rm ef}=T^{ab}-g^{ab}Q$: $\rho_Q=Q$, $p_Q=-Q$, o sea $w_Q=-1$ pero con densidad \textbf{variable}. Como $\rho_Q+p_Q=0$, $Q$ no contribuye a $\dot H=-\kappa(\rho+p)/2$: esa es la razón de que (2.8) no lo tenga.
+
+\smallskip\noindent\textbf{Ecuación del inflatón.} \propia\ Como $\dot\rho_\phi+3H(\rho_\phi+p_\phi)=\dot\phi(\ddot\phi+3H\dot\phi+V')$, si \emph{toda} la no conservación se atribuye al inflatón:
+\begin{equation}
+\ddot\phi+3H\dot\phi+V'(\phi)=-\frac{\dot Q}{\dot\phi}\tag{2.9}
+\end{equation}
+Con $Q$ constante (UG conservativa) se recupera Klein--Gordon estándar. \supuesto\ \emph{elección del ejemplo con inflatón}: (2.9) supone que $Q$ intercambia energía solo con el inflatón. A2 (Eq.~(38)) hace otra cosa: el inflatón se conserva y $Q$ alimenta a un fluido de radiación. \textbf{Nada de lo que sigue en las Secs.~3--6 depende de esto}, porque solo entra el total.
+
+\sub{2.5}{Friedmann en RG.} \estandar, misma álgebra con $\lambda\to\Lambda$ constante (o $0$):
+\begin{equation}
+3\MP^2H^2=\tfrac12\dot\phi^2+V\ (+\Lambda\MP^2),\qquad\dot H=-\frac{\dot\phi^2}{2\MP^2},\qquad\ddot\phi+3H\dot\phi+V'=0\tag{2.10}
+\end{equation}
+
+\sub{2.6}{Constante de integración.} \propia\ Evaluar (2.7) en $t_{\rm ini}$:
+\begin{equation}
+\Lambda_0=3H_{\rm ini}^2-\frac{\rho_{\rm ini}+Q_{\rm ini}}{\MP^2}\tag{2.11}
+\end{equation}
+\citado{A1, Eq.~(12)}. $\Lambda_0$ lo fijan las condiciones iniciales, no la acción.
+
+\sub{2.7}{Primer parámetro de flujo de Hubble.} \propia\ $\epsilon_1\equiv-\dot H/H^2=\dot\phi^2/(2\MP^2H^2)$. (Hay inflación, $\ddot a>0$, si y solo si $\epsilon_1<1$.) Con (2.7):
+\begin{equation}
+\epsilon_1^{\rm UG}=\frac{3\dot\phi^2}{\dot\phi^2+2\,(V+Q+\Lambda_0\MP^2)},\qquad
+\epsilon_1^{\rm RG}=\frac{3\dot\phi^2}{\dot\phi^2+2V}\tag{2.12}
+\end{equation}
+La aceleración ($\epsilon_1<1$) equivale a $\dot\phi^2<V+Q+\Lambda_0\MP^2$. \citado{A2, texto tras Eq.~(38)} da la condición ``$Q+V>2X$'' con $X=\dot\phi^2/2$: coincide para $\Lambda_0=0$.
+
+Para un fluido perfecto $p=w\rho$: $\dot H=-(1+w)\rho/(2\MP^2)$ y, con $\Lambda_0=0$ y $\Gamma\equiv Q/\rho$,
+\begin{equation}
+\epsilon_1=\frac{3(1+w)}{2(1+\Gamma)}\tag{2.13}
+\end{equation}
+\citado{A1, Eq.~(15)}. Reproduce el caso de A1 (radiación: $\epsilon_1=2/(1+\Gamma)$).
+
+Esta aproximación usa Klein--Gordon conservativa: para el único escalar que recibe la transferencia exige $\dot Q=0$. Con una ley local fija, $U=V+Q(\phi)+\Lambda_0 M_P^2$, la aproximación correspondiente usa $U$ y $U\prime$. El código integra la ecuación completa con fuente para $Q(N)$.
+
+\sub{2.8}{Slow-roll (aproximación, no exacta).} \propia, \supuesto: $|\ddot\phi|\ll|3H\dot\phi|$ y Klein--Gordon estándar. Entonces $\dot\phi\simeq-V'/3H$ y
+\begin{equation}
+H^2\simeq\frac{V+Q+\Lambda_0\MP^2}{3\MP^2},\qquad
+\epsilon_1\simeq\frac{\MP^2}2\left(\frac{V'}{V+Q+\Lambda_0\MP^2}\right)^2\tag{2.14}
+\end{equation}
+Con $Q$ constante es RG con $V\to V+\text{cte}$. Coincide cualitativamente con \citado{B7 (solo abstract)}: ``inflation proceeds as usual'' con las ecuaciones sin traza.
+
+\medskip\noindent\textbf{Cuadro comparativo del fondo}
+\begin{center}\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}L{3.5cm}L{3.1cm}L{3.5cm}L{4.9cm}@{}}
+\toprule
+& \textbf{RG} & \textbf{UG conservativa} ($Q$ cte) & \textbf{UG no conservativa}\\
+\midrule
+$3\MP^2H^2$ & $\rho_\phi\,(+\Lambda\MP^2)$ & $\rho_\phi+\Lambda_0\MP^2$ & $\rho_\phi+Q(t)+\Lambda_0\MP^2$\\
+$\dot H$ & $-\dot\phi^2/2\MP^2$ & igual & \textbf{igual}\\
+Origen de la constante & parámetro de la acción & integración, (2.11) & integración; $Q(t)$ libre\\
+Ecuación del inflatón & KG estándar & KG estándar & (2.9) si $Q$ se acopla al inflatón\\
+Equivalencia con RG & --- & \textbf{exacta}, $\Lambda=\Lambda_0$ & no: $H(t)$ distinto para el mismo $V$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{llevarse}
+\begin{itemize}[nosep]
+\item $H^2$ recibe $+Q+\Lambda_0\MP^2$ (2.7); $\dot H$ no cambia (2.8). \propia\ \citado{A1, Eqs.~(9)--(10)}
+\item $Q$ es un fluido con $w=-1$ y densidad variable; por eso $\rho_Q+p_Q=0$ y no entra en $\dot H$. \propia
+\item $\Lambda_0$ no es un parámetro: sale de las condiciones iniciales (2.11).
+\item Con $Q$ constante, UG $=$ RG exacta. Con $Q(t)$, el mismo $V$ da otro $H(t)$ y otro $\epsilon_1$ (2.12): \emph{ese} es el único canal por el que $Q$ puede llegar al espectro tensorial.
+\item El ejemplo numérico con inflatón adopta (2.9); el modelo de radiación con $Q$ se trata por separado en el informe.
+\end{itemize}
+\end{llevarse}
+
+%=====================================================================
+\section{Modos tensoriales sobre el fondo}
+
+\begin{enpalabras}
+Segundo efecto posible de $Q$: sobre las ondas gravitacionales. Una onda gravitacional primordial es una deformación de la parte espacial de la métrica, $g_{ij}=a^2(\delta_{ij}+h_{ij})$, con $h_{ij}$ \emph{sin traza} (no cambia el volumen) y \emph{transversal} ($\partial_ih_{ij}=0$). \estandar\ Una matriz simétrica $3\times3$ tiene 6 componentes; sin traza quedan 5; la transversalidad quita 3 más; quedan \textbf{2 polarizaciones} ($+$ y $\times$).
+
+La pregunta es si el vínculo o $Q$ alteran cómo evoluciona $h_{ij}$. La respuesta es \textbf{no}, mediante las comprobaciones indicadas, cada una demostrada abajo:
+\begin{enumerate}[nosep]
+\item El vínculo fija el volumen, y una perturbación sin traza no cambia el volumen a primer orden (3.3).
+\item $\lambda$ (y $Q$) son \emph{escalares}: solo pueden aparecer en la ecuación multiplicando a $\delta_{ij}$, que no tiene parte TT (3.6).
+\item La materia no tiene parte TT en su tensor de tensiones a primer orden (3.7).
+\end{enumerate}
+Entonces la ecuación de $h$ es la de RG, y lo único que puede distinguir a UG de RG es qué función $H(t)$ entra. La Sec.~3.4 es álgebra larga (Christoffel $\to$ Ricci $\to$ Einstein); el resultado que importa es (3.5).
+\end{enpalabras}
+
+\sub{3.1}{Perturbación.} \supuesto\ (decisión i: ambas) Métrica $g_{00}=-1$, $g_{0i}=0$ y
+\begin{equation}
+g_{ij}=a^2(\delta_{ij}+h_{ij}),\qquad h_{ii}=0,\ \ \partial_ih_{ij}=0\tag{3.1}
+\end{equation}
+Variable de Fabris et al.: $\hat h_{ij}\equiv\delta g_{ij}=a^2h_{ij}$ (3.2), \citado{C4, Sec.~GW}.
+
+\sub{3.2}{Invariancia de gauge.} \propia, coincide con \citado{A3, Eq.~(5.10)} y \citado{C4}. Bajo $x^\mu\to x^\mu+\xi^\mu$, $\delta g_{ij}\to\delta g_{ij}-\mathcal L_\xi\bar g_{ij}$ con $\mathcal L_\xi\bar g_{ij}=2a\dot a\,\xi^0\delta_{ij}+a^2(\partial_i\xi_j+\partial_j\xi_i)$. Descomponiendo $\xi_i=\partial_i\xi+\xi^V_i$ con $\partial_i\xi^V_i=0$ queda solo parte escalar ($\propto\delta_{ij}$, $\partial_i\partial_j\xi$) y vectorial ($\partial_{(i}\xi^V_{j)}$): \textbf{no hay parte TT}. Luego $h_{ij}$ es invariante de gauge a primer orden y no hay ninguna elección de gauge que hacer para los tensores. En UG los difeos permitidos se restringen además a $\nabla_a\xi^a=0$ (A3), lo que no afecta a este argumento.
+
+\sub{3.3}{Vínculo linealizado.} \propia\ $\delta\sqrt{-g}=\tfrac12a^3h_{ii}=0$. Para modos TT el vínculo (1.4) se cumple \textbf{idénticamente} a primer orden: no restringe $h_{ij}$ ni quita libertad. Coincide con \citado{C4, Eq.~(34)} (``already encoded in the condition to have pure tensorial modes''), \citado{C1, Conclusiones} y \citado{C3, Sec.~5}.
+
+\sub{3.4}{Geometría a primer orden.} \propia\ Con (3.1) y $\delta\ln\sqrt\gamma=O(h^2)$ (porque $\mathrm{tr}\,h=0$):
+\begin{equation}
+\begin{gathered}
+\Gamma^0{}_{ij}=a^2\Big[H(\delta_{ij}+h_{ij})+\tfrac12\dot h_{ij}\Big],\qquad
+\Gamma^i{}_{0j}=H\delta_{ij}+\tfrac12\dot h_{ij},\\
+\Gamma^i{}_{jk}=\tfrac12(\partial_jh_{ik}+\partial_kh_{ij}-\partial_ih_{jk})
+\end{gathered}\tag{3.3}
+\end{equation}
+Con $R_{ij}=\partial_\mu\Gamma^\mu_{ij}-\partial_j\Gamma^\mu_{i\mu}+\Gamma^\mu_{\mu\lambda}\Gamma^\lambda_{ij}-\Gamma^\mu_{j\lambda}\Gamma^\lambda_{i\mu}$:
+\begin{itemize}[nosep]
+\item $\partial_\mu\Gamma^\mu_{ij}=a^2\big[(2H^2+\dot H)(\delta+h)_{ij}+2H\dot h_{ij}+\tfrac12\ddot h_{ij}\big]-\tfrac12\nabla^2h_{ij}$,
+\item $\Gamma^\mu_{\mu\lambda}\Gamma^\lambda_{ij}=3Ha^2\big[H(\delta+h)_{ij}+\tfrac12\dot h_{ij}\big]$,
+\item $\Gamma^\mu_{j\lambda}\Gamma^\lambda_{i\mu}=2a^2\big[H^2(\delta+h)_{ij}+H\dot h_{ij}\big]$,
+\item $\partial_j\Gamma^\mu_{i\mu}=0$.
+\end{itemize}
+Sumando:
+\begin{equation}
+R_{ij}=a^2(\dot H+3H^2)(\delta_{ij}+h_{ij})+\tfrac12a^2\big(\ddot h_{ij}+3H\dot h_{ij}\big)-\tfrac12\nabla^2h_{ij}\tag{3.4}
+\end{equation}
+Además $R_{00}$, $R_{0i}$ y $R$ \textbf{no} se perturban a primer orden ($R_{0i}=0$ por transversalidad; $\mathrm{tr}\,h=0$ en el resto). Con $g^{ik}=a^{-2}(\delta-h)_{ik}$, el tensor mixto:
+\begin{equation}
+G^i{}_j=-(2\dot H+3H^2)\,\delta^i_j+\tfrac12\Big(\ddot h_{ij}+3H\dot h_{ij}-\frac{\nabla^2h_{ij}}{a^2}\Big)\tag{3.5}
+\end{equation}
+
+\sub{3.5}{Proyección TT de la ecuación de campo.} \propia\ Perturbando (1.3) en forma mixta, $G^i{}_j+\lambda\,\delta^i_j=\kappa T^i{}_j$, a primer orden:
+\begin{equation}
+\delta G^i{}_j+\delta\lambda\,\delta^i_j=\kappa\,\delta T^i{}_j\tag{3.6}
+\end{equation}
+$\lambda$ es un escalar (1.9), así que $\delta\lambda\,\delta^i_j$ es \textbf{puramente traza} y desaparece al proyectar sobre TT. Para el inflatón, $T^i{}_j=\partial^i\phi\,\partial_j\phi-\delta^i_j[\dots]$: $\partial_i\phi$ es de primer orden (perturbación escalar), luego $\partial^i\phi\,\partial_j\phi$ es de segundo orden, y $g^{00}\dot\phi^2$ no cambia. Por lo tanto (para un fluido perfecto pasa lo mismo: $u^i$ es de primer orden)
+\begin{equation}
+\delta T^i{}_j\big|_{\rm TT}=0\tag{3.7}
+\end{equation}
+En forma mixta los términos de fondo $\propto\delta^i_j$ \textbf{se cancelan exactamente} por la ecuación de fondo $(ij)$ de (2.6), cualquiera sea $\bar\lambda(t)$. Queda:
+\begin{equation}
+\boxed{\;\ddot h_{ij}+3H\dot h_{ij}-\frac{\nabla^2h_{ij}}{a^2}=0\;}\tag{3.8}
+\end{equation}
+En Fourier, $h_{ij}=\sum_{\lambda=+,\times}\int\!\frac{d^3k}{(2\pi)^3}\,h^\lambda_k(t)\,e^\lambda_{ij}(\mathbf k)\,e^{i\mathbf k\cdot\mathbf x}$ con $e^\lambda_{ij}$ constantes:
+\begin{equation}
+\boxed{\;\ddot h_k+3H\dot h_k+\frac{k^2}{a^2}h_k=0\;}\tag{3.9}
+\end{equation}
+Tiempo conforme y variable canónica (\propia):
+\begin{align}
+h_k''+2\mathcal H\,h_k'+k^2h_k&=0\tag{3.10}\\
+v_k\equiv a\,h_k:\qquad v_k''+\Big(k^2-\frac{a''}a\Big)v_k&=0\tag{3.11}
+\end{align}
+La velocidad de propagación es $c_T=1$ (el coeficiente de $k^2$ en (3.11) es $1$).
+
+\emph{Cómo leer (3.9).} \propia\ Es un oscilador de frecuencia $k/a$ con una fricción $3H$ (``fricción de Hubble''). Para $k\to0$ (modos mucho más largos que el horizonte, $k\ll aH$) la ecuación queda $\ddot h+3H\dot h=0$, con soluciones $h=c_1+c_2\int dt/a^3$: una constante y un modo que decae si $a$ crece. Es decir, fuera del horizonte $h_k$ se ``congela''. Por eso se espera que $P_t$ se fije en el cruce del horizonte y dependa de $H$ ahí \estandar\ (no verificado contra F1/F2; el cálculo está en el informe, sección 7).
+
+\sub{3.6}{RG.} \propia\ Con $G^i{}_j+\Lambda\,\delta^i_j=\kappa T^i{}_j$ ($\Lambda$ constante) los pasos son \textbf{literalmente los mismos}: se obtiene (3.8)--(3.11). La \textbf{única} diferencia entre UG y RG es qué función $H(t)$ entra en (3.9): la que resuelve (2.7)--(2.8) en UG y (2.10) en RG.
+
+\sub{3.7}{Traducción a la variable de Fabris et al.} \propia\ Sustituir $h=\hat h/a^2$ en (3.9), con $\dot h=(\dot{\hat h}-2H\hat h)/a^2$ y $\ddot h=(\ddot{\hat h}-4H\dot{\hat h}-2\dot H\hat h+4H^2\hat h)/a^2$, y multiplicar por $a^2$:
+\begin{equation}
+\ddot{\hat h}_k-H\dot{\hat h}_k-2(\dot H+H^2)\hat h_k+\frac{k^2}{a^2}\hat h_k=0\tag{3.12}
+\end{equation}
+\citado{C4, Eq.~(37)}: forma idéntica. Cierra a mano el punto abierto O3 de \texttt{PROVENANCE.md} (falta la verificación simbólica). Que C4 obtenga ``exactly the equation for gravitational waves in GR'' es justamente lo que muestra (3.6). Sus diferencias con $\Lambda$CDM vienen ``only [from] the background functions $H$ and $\dot H$''.
+
+\sub{3.8}{Nota: tiempo unimodular.} \propia\ Con $dT=a^3dt$ (métrica (2.3)), $d/dt=a^3\,d/dT$ y $H=a^2a_T$, la ecuación (3.9) se convierte en
+\begin{equation}
+h_{TT}+6\frac{a_T}a\,h_T+\frac{k^2}{a^8}h=0\tag{3.13}
+\end{equation}
+Es la misma física reetiquetada: el vínculo $\sqrt{-g}=1$ no cambia nada por sí mismo (A3 Sec.~3.2).
+
+\sub{3.9}{Consistencia con $\nabla_aT^{ab}=\nabla^bQ$.} \propia\ La componente $b=j$ a primer orden para TT: $\nabla_aT^a{}_j=\partial_jp+\Gamma^\mu_{\mu k}T^k{}_j-\Gamma^\lambda_{\mu j}T^\mu{}_\lambda=0$, porque $\Gamma^\mu_{\mu k}=\partial_k\ln\sqrt\gamma=0$, $T^0{}_k=0$ y $\Gamma^k_{kj}p=0$. Igual a $\partial_jQ=0$. La no conservación \textbf{no genera ninguna condición sobre TT}.
+
+\begin{llevarse}
+\begin{itemize}[nosep]
+\item Los tensores no necesitan elegir gauge (3.2) y el vínculo se cumple solo con $\mathrm{tr}\,h=0$ (3.3). \propia
+\item La ecuación (3.9) es la de RG, con $c_T=1$ (3.11). \propia
+\item Coincide con Fabris et al. una vez hecho el cambio $\hat h=a^2h$ (3.12). \citado{C4, Eq.~(37)}
+\item $Q$ entra en los modos TT \textbf{solo a través de $H(t)$}: (3.9) es igual en UG y RG, y lo único distinto es la $H(t)$ que se le pasa.
+\item Fuera del horizonte $h_k$ se congela \propia\ (a partir de (3.9) con $k\to0$); que por eso lo que importe para $P_t$ sea $H$ en el cruce es \estandar\ y queda para P2.
+\end{itemize}
+\end{llevarse}
+
+%=====================================================================
+\section{Acción cuadrática y el vínculo a segundo orden}
+
+\begin{enpalabras}
+La Sec.~3 dedujo la ecuación de $h$ desde las ecuaciones de campo. Acá se la deduce de otro modo: desarrollando la \emph{acción} hasta segundo orden en $h$. Sirve para tres cosas: (1) es un chequeo formal condicionado de (3.8); (2) muestra el único lugar donde el vínculo \emph{sí} toca a los tensores: si $g_{ij}=a^2(\delta+h)$ con $\mathrm{tr}\,h=0$, el volumen cambia a segundo orden en $-\tfrac14h^2$ (4.1), y hay que ver qué hace el multiplicador con eso; (3) da la acción que hará falta para cuantizar.
+
+Hay tres aportes a un posible ``término de masa'' $\propto h^2$: uno cinemático (de la curvatura extrínseca), uno de la presión de la materia y uno del vínculo. Se demuestra que suman cero por la ecuación de fondo $(ij)$ (4.6). Por eso la acción resultante (4.7) es la de RG: un campo sin masa, sin ningún término extra.
+\end{enpalabras}
+
+Objetivo: chequeo formal condicionado de (3.8) y control del término del vínculo a segundo orden, que \textbf{no} es trivial. Uso $N=1$, $f=a^3$ (2.2).
+
+\sub{4.1}{Vínculo a segundo orden.} \propia\ Con $M=\delta+h$: $\sqrt{\det M}=\exp[\tfrac12\mathrm{tr}\ln(1+h)]=1-\tfrac14h_{ij}^2+O(h^3)$. Entonces
+\begin{equation}
+\sqrt\gamma=a^3\big(1-\tfrac14h_{ij}^2\big)\ \Rightarrow\ \sqrt{-g}-f=-\tfrac14a^3h_{ij}^2\neq0\tag{4.1}
+\end{equation}
+A segundo orden \textbf{el vínculo sí actúa sobre $h$}: (1.4) exige que un escalar de segundo orden compense $-\tfrac14a^3h_{ij}^2$. El multiplicador impone el vínculo; no sustituye la corrección métrica de segundo orden.
+
+\sub{4.2}{Parte de Einstein--Hilbert.} \estandar\ En forma ADM con $N=1$ (salvo un término de borde):\[S_{EH}=\frac1{2\kappa}\int\sqrt\gamma\,\big[{}^{(3)}R+K_{ij}K^{ij}-K^2\big]\]\propia\ Con $K^i{}_j=H\delta^i_j+\tfrac12(M^{-1}\dot h)_{ij}$:
+\begin{equation}
+K=3H-\tfrac14\tfrac d{dt}h_{ij}^2,\qquad K^i{}_jK^j{}_i-K^2=-6H^2+H\tfrac d{dt}h_{ij}^2+\tfrac14\dot h_{ij}^2\tag{4.2}
+\end{equation}
+Multiplicando por $\sqrt\gamma$ e integrando por partes ($a^3H\,\frac d{dt}h_{ij}^2\to-(3a^3H^2+a^3\dot H)h_{ij}^2$):
+\begin{equation}
+\sqrt\gamma\,(K_{ij}K^{ij}-K^2)\simeq a^3\Big[-6H^2-\big(\tfrac32H^2+\dot H\big)h_{ij}^2+\tfrac14\dot h_{ij}^2\Big]\tag{4.3}
+\end{equation}
+El término gradiente viene de $\sqrt\gamma\,{}^{(3)}R$. \estandar\ $\int\sqrt\gamma\,{}^{(3)}R\to-\tfrac14a\,(\partial_kh_{ij})^2$ (TT, tras integrar por partes). No lo derivo aquí; su coeficiente queda \textbf{fijado por consistencia con (3.8)} (ver el chequeo (a) abajo) y está pendiente de verificar en F1/F2.
+
+\sub{4.3}{Materia.} \propia\ Para $\phi$ homogéneo, $L_m=p$ y $\sqrt{-g}\,L_m=a^3(1-\tfrac14h_{ij}^2)\,p$:
+\begin{equation}
+S_m^{(2)}\supset-\tfrac14a^3\,p\,h_{ij}^2\tag{4.4}
+\end{equation}
+
+\sub{4.4}{Término del vínculo.} \propia\ Con $\lambda=\bar\lambda+\delta\lambda$ y (4.1): $-\frac1\kappa\lambda(\sqrt{-g}-f)$. El término $\delta\lambda\cdot\delta_1\sqrt{-g}$ se anula para TT (Sec.~3.3). Queda:
+\begin{equation}
+S_\lambda^{(2)}=+\frac{\bar\lambda}{4\kappa}\,a^3h_{ij}^2\tag{4.5}
+\end{equation}
+
+\sub{4.5}{Suma de los términos en $h_{ij}^2$ (sin derivadas).} \propia\ De $\frac1{2\kappa}\times$(4.3), (4.4) y (4.5):
+\begin{equation}
+\frac{a^3h_{ij}^2}{4\kappa}\Big[-3H^2-2\dot H-\kappa p+\bar\lambda\Big]=0\tag{4.6}
+\end{equation}
+\textbf{se anula} por la ecuación de fondo $(ij)$ de (2.6), $2\dot H+3H^2=-\kappa p+\bar\lambda$. Aquí $\bar\lambda=\Lambda_0+\kappa Q(t)$ \textbf{entra y se cancela}: el término del vínculo a segundo orden (4.5) participa en la cancelación de modo que no queda un ``término de masa''. En RG con $\Lambda$: idéntico con $\bar\lambda\to\Lambda$.
+
+\smallskip\noindent\textbf{Acción cuadrática resultante} (con el gradiente \estandar):
+\begin{equation}
+S^{(2)}_{TT}=\frac{\MP^2}8\int dt\,d^3x\,\Big[a^3\dot h_{ij}\dot h_{ij}-a\,(\partial_kh_{ij})^2\Big]\tag{4.7}
+\end{equation}
+
+\noindent\textbf{Chequeos.} (a) Variar (4.7) da $\ddot h_{ij}+3H\dot h_{ij}-\nabla^2h_{ij}/a^2=0$, que es (3.8), deducida antes por otro camino (ecuaciones de campo). El coeficiente del gradiente es el único que quedó por consistencia; el cinético $\frac14a^3\dot h^2$ y la cancelación de masa sí salen de la álgebra de arriba. (b) \citado{D1, Eq.~(4.8)}: $S_t=\frac{\MP^2}8\int d\eta\,d^3x\,a^2[(t_{ij}')^2-(\nabla t_{ij})^2]$ (con curvatura nula) en la UG \emph{generalizada}. Pasando (4.7) a tiempo conforme se obtiene exactamente eso.
+
+\sub{4.6}{Variable canónica.} \propia, \supuesto\ (normalización). Con $e^\lambda_{ij}e^{\lambda'*}_{ij}=2\delta_{\lambda\lambda'}$: $S^{(2)}=\frac{\MP^2}4\sum_\lambda\int d\eta\,\frac{d^3k}{(2\pi)^3}\,a^2\big[|h_\lambda'|^2-k^2|h_\lambda|^2\big]$. Con $v_\lambda=\frac{a\MP}{\sqrt2}h_\lambda$ y una integración por partes:
+\begin{equation}
+S^{(2)}=\frac12\sum_\lambda\int d\eta\,\frac{d^3k}{(2\pi)^3}\Big[|v_\lambda'|^2-\Big(k^2-\frac{a''}a\Big)|v_\lambda|^2\Big]\tag{4.8}
+\end{equation}
+Esta normalización se usa para $P_t$ en el informe, sección 7, y en modes.py. \emph{Lectura:} (4.8) tiene la misma forma que la acción de un campo escalar sin masa en FLRW, con $v=a\chi$. \estandar\ (no verificado contra F1/F2). Esa es la razón por la que cada polarización se cuantiza como un escalar sin masa.
+
+\sub{4.7}{Observación.} \propia\ Con la parametrización exponencial $g_{ij}=a^2(e^h)_{ij}$, $\det e^h=e^{\mathrm{tr}\,h}=1$, luego $\sqrt{-g}=a^3$ \textbf{exactamente}: el vínculo se cumple a todo orden y no aparece el término (4.5). La diferencia con la parametrización $\delta+h$ es un término de segundo orden que multiplica la ecuación de fondo, así que $S^{(2)}$ en capa es la misma. Es un buen ejemplo de una elección que \textbf{no} cambia nada.
+
+\begin{llevarse}
+\begin{itemize}[nosep]
+\item A segundo orden el vínculo \emph{sí} toca a $h$: $\sqrt{-g}-f=-\tfrac14a^3h^2\neq0$ (4.1); requiere completar la métrica; $\bar\lambda$ no lo absorbe. \propia
+\item Las contribuciones sin derivadas suman cero (4.6): no aparece ninguna masa efectiva. \propia
+\item La acción cuadrática (4.7) es la de RG. Su ecuación de movimiento es (3.8) y su forma conforme coincide con D1 Eq.~(4.8). \propia, \citado{D1, Eq.~(4.8)}
+\item Lo que \emph{no} está derivado: el coeficiente del gradiente (queda fijado por consistencia con (3.8)).
+\item (4.8) deja el problema listo para cuantizar (P2), con la normalización $e\,e=2$ como \supuesto.
+\end{itemize}
+\end{llevarse}
+
+%=====================================================================
+\section{Dónde el vínculo modifica algo y dónde no}
+
+\begin{enpalabras}
+Un resumen de todo lo anterior en una sola tabla. ``Sí'' significa que $Q$ o el vínculo aparecen en ese punto; ``No'' que no aparecen (o que aparecen y se cancelan, y la última columna dice dónde se ve).
+\end{enpalabras}
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}L{4.1cm}L{2.7cm}L{6.3cm}L{1.9cm}@{}}
+\toprule
+\textbf{Punto} & \textbf{¿Modifica?} & \textbf{Detalle} & \textbf{Ecs.}\\
+\midrule
+Estatus de $\lambda$ & \textbf{Sí} & Deja de ser parámetro de la acción: $\lambda=\Lambda_0+\kappa Q$ & (1.9), (2.11)\\
+Ecuación de la traza & \textbf{Sí} & Pasa a definir $\lambda$; se pierde una ecuación ($10\to9$) & (1.5)\\
+Conservación de $T_{ab}$ & \textbf{Sí (permite violarla)} & En RG es un teorema; en UG es hipótesis adicional & (1.8)\\
+$H^2$ (Friedmann) & \textbf{Sí, si $Q\neq$ cte} & $Q(t)$ suma como fluido $w=-1$ de densidad variable & (2.7)\\
+$H^2$ con $Q$ cte & \textbf{No} & Equivale a RG con $\Lambda=\Lambda_0$ & (2.7), (2.10)\\
+$\dot H$ & \textbf{No} & $Q$ no entra & (2.8)\\
+$\epsilon_1$ y slow-roll & \textbf{Sí, vía $H^2$} & $\epsilon_1$ depende de $V+Q+\Lambda_0\MP^2$ & (2.12), (2.14)\\
+Vínculo a 1.\textsuperscript{er} orden, TT & \textbf{No} & $\delta\sqrt{-g}=\tfrac12a^3h_{ii}=0$ & Sec.~3.3\\
+Gauge de $h_{ij}$ & \textbf{No} & TT invariante de gauge & Sec.~3.2\\
+Fuente de TT & \textbf{No} & $Q$ escalar; $\delta T^i{}_j|_{TT}=0$ & (3.6), (3.7)\\
+\textbf{Ecuación de $h_k$} & \textbf{No} & Igual que RG, $c_T=1$ & (3.8)--(3.11)\\
+Vínculo a 2.\textsuperscript{o} orden, TT & \textbf{Sí, pero se cancela} & $-\tfrac14a^3h_{ij}^2$, requiere completar la métrica & (4.1), (4.6)\\
+Acción cuadrática & \textbf{No} & Igual que RG & (4.7)\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Respuesta a la pregunta (b) del proyecto, en una línea:} el vínculo modifica el fondo cuando hay difusión, \textbf{no} modifica la ecuación lineal TT; la acción estándar es una hipótesis efectiva, que depende de $Q$ únicamente a través de $H(t)$. Coincide con lo que dice la literatura (C1, C3, C4, D1; ver \texttt{RESUMEN\_CONSENSO.md}), pero aquí queda derivado.
+
+%=====================================================================
+\section{Resultado: ecuaciones en ambos casos}
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}L{2.3cm}L{6.2cm}L{6.4cm}@{}}
+\toprule
+& \textbf{RG} & \textbf{UG (inflatón, $Q$ general)}\\
+\midrule
+Friedmann & $3\MP^2H^2=\tfrac12\dot\phi^2+V\,(+\Lambda\MP^2)$ & $3\MP^2H^2=\tfrac12\dot\phi^2+V+Q+\Lambda_0\MP^2$\\
+$\dot H$ & $-\dot\phi^2/2\MP^2$ & $-\dot\phi^2/2\MP^2$\\
+Modos TT & $\ddot h_k+3H\dot h_k+\frac{k^2}{a^2}h_k=0$ & $\ddot h_k+3H\dot h_k+\frac{k^2}{a^2}h_k=0$\\
+Acción TT & $\frac{\MP^2}8\int a^3[\dot h^2-(\partial h)^2/a^2]$ & igual\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%=====================================================================
+\section{Chequeos hechos a mano (ninguno con código)}\label{sec:chk}
+
+\begin{center}\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}L{0.9cm}L{11.2cm}L{2.8cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Chequeo} & \textbf{Resultado}\\
+\midrule
+H1 & (2.6) con $\bar\lambda=\Lambda_0+\kappa Q$ vs.\ A1 Eqs.~(9)--(10) & Coincide\\
+H2 & Continuidad derivada de (2.7)--(2.8) vs.\ (1.8) con signos ($\nabla^0Q=-\dot Q$) y vs.\ A1 Eq.~(11) & Coincide\\
+H3 & (2.13) vs.\ A1 Eq.~(15); (2.12) vs.\ la condición ``$Q+V>2X$'' de A2 & Coincide\\
+H4 & $G^i{}_j$ a primer orden (3.5): reproduce el fondo y el resultado estándar $\ddot h+3H\dot h+k^2h/a^2=0$ & Coincide\\
+H5 & (3.9)$\to$(3.12) vs.\ C4 Eq.~(37) & Coincide ($\hat h=a^2h$)\\
+H6 & (3.9)$\to$(3.10) y (3.11): sustitución $h=v/a$ & Coincide con $a''/a=\mathcal H'+\mathcal H^2$\\
+H7 & Cancelación de masa (4.6) usando (2.6) & Se anula\\
+H8 & EOM de (4.7) vs.\ (3.8); (4.7) en $\eta$ vs.\ D1 Eq.~(4.8) & Coincide\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Lo que estos chequeos NO cubren:} no son verificación simbólica ni numérica; el término gradiente de (4.7) es \estandar\ y solo está chequeado por consistencia con (3.8); y F1/F2 (libros) no fueron leídos.
+
+%=====================================================================
+\section{Cuentas adicionales que considero necesarias}\label{sec:pend}
+
+\textbf{Incluidas arriba, aunque no las pediste explícitamente:}
+\begin{enumerate}[nosep]
+\item \textbf{Consistencia con la no conservación} (3.9): $\nabla_aT^{ab}=\nabla^bQ$ no impone nada sobre TT.
+\item \textbf{Vínculo a segundo orden} (4.1)--(4.6): el punto donde el vínculo \emph{sí} toca a los tensores, y por qué no tiene efecto físico.
+\item \textbf{Traducción a la variable de Fabris} (3.12): conecta con C4 y cierra O3.
+\item \textbf{$\epsilon_1$ en términos de $V$, $Q$} (2.12), (2.14): es por donde $Q$ entra en cualquier observable tensorial.
+\item \textbf{Forma conforme y variable canónica} (3.10)--(3.11), (4.8).
+\end{enumerate}
+
+\subsection*{Estado de las extensiones}
+La cuantización tensorial y su normalización están en el informe, sección 7,
+y en \texttt{codigo/modes.py}; C1.1 compara con el modo de de Sitter a tiempo finito.
+El ejemplo con inflatón adopta transferencia por (2.9); el modelo de radiación
+con $Q$ se analiza por separado. Cuatro comprobaciones de SymPy verifican
+identidades a primer orden; no hay verificación simbólica completa de la acción
+cuadrática ni mutantes simbólicos conservados.
+
+Permanecen como límites científicos el sector escalar con difusión, el factor
+$3^{3/2}$ entre las fórmulas publicadas, la justificación completa de la acción
+efectiva con transferencia y el recalentamiento. Las relaciones para $r$ son
+condicionales. No son pasos de reproducción pendientes.
+
+\section{Decisiones adoptadas}\label{sec:dec}
+Se usa $e^\lambda_{ij}e^{\lambda'}_{ij}=2\delta_{\lambda\lambda'}$,
+$P_T=\langle h_{ij}h_{ij}\rangle$ por intervalo de $\ln k$ y el vacío
+de Bunch--Davies. Las entradas de los ejemplos y sus alternativas están
+registradas en \texttt{provenance/}. El procedimiento vigente está en
+\texttt{REPRODUCCION.md}; los resultados completos están en el informe.
+\end{document}

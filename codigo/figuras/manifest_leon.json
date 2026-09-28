@@ -1,0 +1,38 @@
+{
+ "script": "dd78fa6cd61ecd7e31c9b1bb21d1ba2617f10d6a85cfe3ca0f1641c3421a57b8",
+ "deps": {
+  "background.py": "e26412288a3a128150aae0def83093d1fc406aef2462404462b5dddc53b2e767",
+  "background_leon.py": "0ef3fd30af3248c8228a52136d28ea5666e8d250021ee812312ec031a91431b2",
+  "modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
+  "config.py": "951e0fc6fc39c193524a231e664e881558c69ef411fc09a51dab959d9e7b9394",
+  "checks.py": "5af6c71ebdae6154a4f19df93f6787e40d5955175afbf4d0d2a287be091017b4",
+  "checks_leon.py": "79cd9ae13bb0decf427ae190ce84e77dbd18b6a46110d8b5b76caf67e609bcd5",
+  "make_figures.py": "5e74fa35c54ef34d2b801f094c13e27339ba4b16e89ec1569fe7a6e7cfd5c293"
+ },
+ "versions": {
+  "python": "3.12.3",
+  "numpy": "1.26.4",
+  "matplotlib": "3.9.2"
+ },
+ "figures": {
+  "fig_fondo": {
+   "inputs": {},
+   "outputs": {
+    "fig9_fondo_leon.png": "148539b80cdac28601c132d844319ae97b3feac79574369222cbc31da48e275b",
+    "fig9_fondo_leon.pdf": "38257b3c0fce41c8a9e973a96041fdf4320d16ad6b68e1e7cc8b26ac46cc65e2",
+    "fig9_fondo_leon.csv": "ab05782a2055d91f21d62243b0a075c7bd11fc2040430098c09a9e288014f600"
+   }
+  },
+  "fig_PT_As": {
+   "inputs": {
+    "leon/comparacion.json": "e0d8d4a62131b79982aecb16fb640ac4255ff095871b421cc7b48d0f61502950"
+   },
+   "outputs": {
+    "fig10_leon_PT_As.png": "b639c7d0125dfbb5ae554e2348e68dd52734a6dd1d714ad92f6b1b1b507a26f4",
+    "fig10_leon_PT_As.pdf": "24a6254752e1c1f6964a43d30eabd83c1bd2973cfa060b12f7aeb2f800397bbd",
+    "fig10_leon_PT_As.csv": "2f3ff61055c0d0cc59378e6c4f9ff3fbf55a4e710371bd016851bac8a1c5fb98",
+    "fig10_leon_scalars.csv": "7f7fb42134d75b3a218151aa9f6f166357533462864ed393438da94b7557052e"
+   }
+  }
+ }
+}
