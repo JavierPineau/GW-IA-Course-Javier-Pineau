@@ -1,0 +1,3 @@
+cd codigo && /tmp/fixes_gw_20260926/venv/bin/python -m pytest -q
+.........................................                                [100%]
+41 passed in 92.77s (0:01:32)

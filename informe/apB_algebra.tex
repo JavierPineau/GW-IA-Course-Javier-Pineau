@@ -1,0 +1,71 @@
+\section{Detalles de álgebra}
+\label{ap:algebra}
+
+Este apéndice desarrolla los pasos de la sección~\ref{sec:tensores} y de la sección~\ref{sec:numerico} que se saltearon en el texto principal. Todo es álgebra propia hecha a mano, con las verificaciones de consistencia indicadas en cada caso, y no se contrastó con álgebra simbólica.
+
+\subsection{El tensor de Ricci a primer orden}
+
+Con la métrica $g_{00}=-1$, $g_{0i}=0$, $g_{ij}=a^2(\delta_{ij}+h_{ij})$ y los símbolos de Christoffel \eqref{eq:Gammah}, se calcula $R_{ij}=\partial_\mu\Gamma^\mu_{ij}-\partial_j\Gamma^\mu_{i\mu}+\Gamma^\mu_{\mu\lambda}\Gamma^\lambda_{ij}-\Gamma^\mu_{j\lambda}\Gamma^\lambda_{i\mu}$ término a término. Los Christoffel se obtienen de $\Gamma^0_{ij}=\tfrac12\partial_tg_{ij}=a^2[H(\delta+h)_{ij}+\tfrac12\dot h_{ij}]$ y de $\Gamma^i_{0j}=\tfrac12g^{ik}\partial_tg_{kj}=H\delta_{ij}+\tfrac12\dot h_{ij}+\mathcal O(h^2)$, ya que $g^{ik}=a^{-2}(\delta-h)_{ik}$ y $(\delta-h)(\delta+h)=\delta+\mathcal O(h^2)$.
+
+\paragraph{Primer término.} $\partial_\mu\Gamma^\mu_{ij}=\partial_t\Gamma^0_{ij}+\partial_k\Gamma^k_{ij}$. Derivando,
+\begin{equation}
+\partial_t\Gamma^0_{ij}=2a^2H\big[H(\delta+h)+\tfrac12\dot h\big]+a^2\big[\dot H(\delta+h)+H\dot h+\tfrac12\ddot h\big]=a^2\big[(2H^2+\dot H)(\delta+h)_{ij}+2H\dot h_{ij}+\tfrac12\ddot h_{ij}\big],
+\end{equation}
+y $\partial_k\Gamma^k_{ij}=\tfrac12\big(\partial_k\partial_ih_{kj}+\partial_k\partial_jh_{ki}-\nabla^2h_{ij}\big)=-\tfrac12\nabla^2h_{ij}$ por la transversalidad.
+
+\paragraph{Segundo término.} $\partial_j\Gamma^\mu_{i\mu}=\partial_j\partial_i\ln\sqrt{-g}=0$, porque $\ln\sqrt{-g}=3\ln a+\mathcal O(h^2)$.
+
+\paragraph{Tercer término.} $\Gamma^\mu_{\mu 0}=3H$ y $\Gamma^\mu_{\mu k}=\partial_k\ln\sqrt{-g}=0$, de modo que $\Gamma^\mu_{\mu\lambda}\Gamma^\lambda_{ij}=3H\,\Gamma^0_{ij}=3Ha^2\big[H(\delta+h)_{ij}+\tfrac12\dot h_{ij}\big]$.
+
+\paragraph{Cuarto término.} Contribuyen $(\mu,\lambda)=(0,k)$ y $(k,0)$ a primer orden (el término $(k,l)$ es de segundo orden): $\Gamma^\mu_{j\lambda}\Gamma^\lambda_{i\mu}=2\,\Gamma^0_{jk}\Gamma^k_{i0}=2a^2\big[H^2(\delta+h)_{ij}+H\dot h_{ij}\big]$.
+
+\paragraph{Suma.} Los coeficientes de $(\delta+h)_{ij}$ suman $(2H^2+\dot H)+3H^2-2H^2=\dot H+3H^2$; los de $\dot h_{ij}$ suman $2H+\tfrac32H-2H=\tfrac32H$; y queda $\tfrac12\ddot h_{ij}$ y $-\tfrac12\nabla^2h_{ij}$. Es decir,
+\begin{equation}
+R_{ij}=a^2(\dot H+3H^2)(\delta_{ij}+h_{ij})+\tfrac12a^2\big(\ddot h_{ij}+3H\dot h_{ij}\big)-\tfrac12\nabla^2h_{ij},
+\end{equation}
+que es \eqref{eq:Rijh}. Para el tensor mixto, $R^i{}_j=g^{ik}R_{kj}=a^{-2}(\delta-h)_{ik}R_{kj}=(\dot H+3H^2)\delta_{ij}+\tfrac12(\ddot h_{ij}+3H\dot h_{ij})-\tfrac12\nabla^2h_{ij}/a^2$, y con $R=6(\dot H+2H^2)$ (sin perturbación a primer orden) se obtiene \eqref{eq:GTT}: $G^i{}_j=R^i{}_j-\tfrac12R\,\delta^i_j$ tiene el coeficiente $\dot H+3H^2-3\dot H-6H^2=-(2\dot H+3H^2)$ en la parte de fondo.
+
+\subsection{Cambio de variable a la forma de Fabris et al.}
+
+Sustituyendo $h=\hat h/a^2$, $\dot h=(\dot{\hat h}-2H\hat h)/a^2$ y $\ddot h=(\ddot{\hat h}-4H\dot{\hat h}-2\dot H\hat h+4H^2\hat h)/a^2$ en \eqref{eq:modok} y multiplicando por $a^2$:
+\begin{equation}
+\ddot{\hat h}-4H\dot{\hat h}-2\dot H\hat h+4H^2\hat h+3H\dot{\hat h}-6H^2\hat h+\frac{k^2}{a^2}\hat h=\ddot{\hat h}-H\dot{\hat h}-2(\dot H+H^2)\hat h+\frac{k^2}{a^2}\hat h=0,
+\end{equation}
+que es \eqref{eq:fabris}.
+
+\subsection{La ecuación en el tiempo unimodular}
+
+Con $\dd T=a^3\dd t$ resulta $\tfrac{\dd}{\dd t}=a^3\tfrac{\dd}{\dd T}$ y $H=\dot a/a=a^2a_T$. Entonces $\dot h=a^3h_T$ y $\ddot h=a^3\tfrac{\dd}{\dd T}(a^3h_T)=a^6h_{TT}+3a^5a_Th_T$; con $3H\dot h=3a^5a_Th_T$, \eqref{eq:modok} queda $a^6h_{TT}+6a^5a_Th_T+(k^2/a^2)h=0$, y dividiendo por $a^6$ se obtiene \eqref{eq:modoT}.
+
+\subsection{La acción a segundo orden}
+
+\paragraph{Curvatura extrínseca.} Con lapse $N=1$, la métrica espacial es $\gamma_{ij}=a^2M_{ij}$ con $M=\delta+h$, y la curvatura extrínseca es $K^i{}_j=\tfrac12\gamma^{ik}\dot\gamma_{kj}=H\delta^i_j+\tfrac12(M^{-1}\dot h)_{ij}$. Como $\mathrm{tr}\,h=0$, $\mathrm{tr}(M^{-1}\dot h)=\tfrac{\dd}{\dd t}\ln\det M=\tfrac{\dd}{\dd t}\mathrm{tr}\ln(1+h)=-\tfrac12\tfrac{\dd}{\dd t}h_{ij}^2$, de modo que $K=3H-\tfrac14\tfrac{\dd}{\dd t}h_{ij}^2$. Con $A\equiv M^{-1}\dot h$:
+\begin{align}
+K^i{}_jK^j{}_i&=3H^2+H\,\mathrm{tr}A+\tfrac14\mathrm{tr}(A^2)=3H^2-\tfrac12H\tfrac{\dd}{\dd t}h_{ij}^2+\tfrac14\dot h_{ij}^2+\mathcal O(h^3),\\
+K^2&=9H^2+3H\,\mathrm{tr}A+\mathcal O(h^4)=9H^2-\tfrac32H\tfrac{\dd}{\dd t}h_{ij}^2+\mathcal O(h^4),
+\end{align}
+y la diferencia es $K^i{}_jK^j{}_i-K^2=-6H^2+H\tfrac{\dd}{\dd t}h_{ij}^2+\tfrac14\dot h_{ij}^2$, que es \eqref{eq:Kh}.
+
+\paragraph{Multiplicación por $\sqrt\gamma$ e integración por partes.} Con $\sqrt\gamma=a^3(1-\tfrac14h_{ij}^2)$,
+\begin{equation}
+\sqrt\gamma\,(K_{ij}K^{ij}-K^2)=a^3\Big[-6H^2+\tfrac32H^2h_{ij}^2+H\tfrac{\dd}{\dd t}h_{ij}^2+\tfrac14\dot h_{ij}^2\Big].
+\end{equation}
+Integrando por partes, $\int a^3H\tfrac{\dd}{\dd t}h_{ij}^2\,\dd t=-\int\tfrac{\dd}{\dd t}(a^3H)\,h_{ij}^2\,\dd t=-\int(3a^3H^2+a^3\dot H)\,h_{ij}^2\,\dd t$, y los coeficientes de $h_{ij}^2$ suman $\tfrac32H^2-3H^2-\dot H=-(\tfrac32H^2+\dot H)$: es \eqref{eq:KKh}.
+
+\paragraph{Suma de los términos sin derivadas.} Con el factor $\frac{1}{2\kap}$ de $S_{EH}$, el aporte de \eqref{eq:KKh} es $\frac{a^3h_{ij}^2}{2\kap}\,[-\tfrac32H^2-\dot H]=\frac{a^3h_{ij}^2}{4\kap}[-3H^2-2\dot H]$. El de la materia \eqref{eq:Sm2} es $-\tfrac14a^3ph_{ij}^2=\frac{a^3h_{ij}^2}{4\kap}[-\kap p]$, y el del vínculo \eqref{eq:Slambda2} es $\frac{a^3h_{ij}^2}{4\kap}[\Lb]$. La suma es \eqref{eq:cancel}.
+
+\subsection{La ecuación de modos con el término de masa}
+
+Si se conserva el corchete de \eqref{eq:cancel} sin anularlo, $X\equiv-3H^2-2\dot H-\kap p+\Lb$, la parte de la lagrangiana sin derivadas es $\frac{a^3}{4\kap}X\,h_{ij}^2$, y la acción completa es
+\begin{equation}
+S=\frac{1}{8\kap}\int\dd t\,\dd^3x\,\Big[a^3\dot h_{ij}^2-a(\partial_kh_{ij})^2+2a^3X\,h_{ij}^2\Big].
+\end{equation}
+Para cada componente TT la ecuación de Euler--Lagrange es $\tfrac{\dd}{\dd t}(a^3\dot h)-a\nabla^2h-2a^3Xh=0$, es decir $\ddot h+3H\dot h-\nabla^2h/a^2-2Xh=0$, que en Fourier es \eqref{eq:modoX}. En tiempo conforme, con $\dot h=h'/a$ y $\ddot h=(h''-\mathcal Hh')/a^2$, se obtiene $h''+2\mathcal Hh'+(k^2-2Xa^2)h=0$, y con $v=ah$ (y $a''/a$ de la sección~\ref{sec:ecmodosnum}), $v''+(k^2-a''/a-2Xa^2)v=0$.
+
+\subsection{Paso a la variable $N$}
+
+Con $\tfrac{\dd}{\dd\eta}=aH\tfrac{\dd}{\dd N}$ y $w=\dd v/\dd N$, $v'=aHw$ y
+\begin{equation}
+v''=aH\,\frac{\dd}{\dd N}(aH\,w)=aH\,(aH)_N\,w+a^2H^2w_N=a^2H^2\big[(1-\epsilon_1)\,w+w_N\big],
+\end{equation}
+donde se usó $(aH)_N=aH\,(1+H_N/H)=aH\,(1-\epsilon_1)$. Sustituyendo en $v''+(k^2-a''/a-2Xa^2)v=0$ con $a''/a=a^2H^2(2-\epsilon_1)$ y dividiendo por $a^2H^2$ se obtiene \eqref{eq:modoN}.

@@ -1,0 +1,121 @@
+\section{Un segundo potencial y la comparación a igual $N_*$}
+\label{sec:potenciales}
+
+Los resultados de la sección~\ref{sec:resultados} se obtuvieron con un solo potencial y comparando a igual $k$ comóvil. Esta sección corrige ambas limitaciones. Agrega un segundo potencial, el de Starobinsky, y cambia el criterio de comparación por uno que no depende de que los dos modelos duren lo mismo. El resultado es que \emph{una de las conclusiones de la sección~\ref{sec:resultados} no sobrevive} al cambio de criterio, y hay que leerla con la salvedad que se explica en la subsección~\ref{sec:igualN}.
+
+\subsection{Por qué otro potencial}
+\label{sec:porquestaro}
+
+El potencial cuadrático se adoptó por ser el más simple, con un solo parámetro que solo escala la amplitud. Tiene dos inconvenientes conocidos. Predice $r\approx0.13$--$0.16$ para $N_*=60$--$50$, que está en tensión con las observaciones (sección~\ref{sec:GW-RG}, \cite{planck20,bicep21}); y el campo recorre $\phi_*\approx15\,\MP$ durante las últimas 60 e-folds. Además, el resultado de UG dependía de un rasgo propio de este potencial: la energía $\rho_\phi$ cae hasta ser comparable con $Q_i$ al final de la inflación, y por eso la constante $\Lambda_0=-Q_i$ termina la inflación de UG (sección~\ref{sec:fondores}).
+
+El potencial de Starobinsky,
+\begin{equation}
+V(\phi)=\tfrac34\,M^2\MP^2\big(1-\ee^{-\sqrt{2/3}\,\phi/\MP}\big)^2,
+\label{eq:Vstaro}
+\end{equation}
+es un plateau: para $\phi\gg\MP$ es casi constante y el slow-roll vale con $\epsilon_1\approx3/(4N^2)$, de modo que $r\approx12/N^2\approx3\times10^{-3}$ y $n_s\approx1-2/N$ para $N=60$ \etq{E}. Aquí se adopta fenomenológicamente la forma \eqref{eq:Vstaro} \etq{S}. Las referencias históricas \cite{starobinsky80,defelice10} se verificaron solo en metadatos; no se usa su contenido como verificación textual de una transformación conforme ni se deriva un origen $R^2$ en UG. El control numérico contrasta las estimaciones estándar $r\approx12/N^2$ y $n_s\approx1-2/N$.
+
+La escala $M$ es una calibración, no una predicción: se fijó en $M=1.14\times10^{-5}\,\MP$ para que RG reproduzca la amplitud escalar de Planck, $A_s=2.10\times10^{-9}$ \cite{planck20}, a $N_*=60$ con la fórmula de orden cero $P_\mathcal{R}=H^2/(8\pi^2\MP^2\epsilon_1)$. Un valor de memoria que tenía antes ($1.3\times10^{-5}$) correspondía a $N_*\approx52$ y se descartó antes de correr los controles. Como en el caso cuadrático, $M$ solo escala $P_T$ (por homogeneidad, el código integra con $M=1$).
+
+El resto de las decisiones no cambia: mismos $\phi_i$, $\dot\phi_i$ y $H_i$ en RG y UG; $\Lambda_0=-Q_i$; $Q(N)=Q_i\ee^{-\gamma N}$ con $Q_i/V_i=0.1$ y $\gamma=0.1$; y $\phi_i$ ajustado para que UG dure $N_f=100$ e-folds, lo que da $\phi_i=7.660\,\MP$.
+
+\subsection{El fondo de UG con Starobinsky}
+\label{sec:fondostaro}
+
+La figura~\ref{fig:fondostaro} muestra el fondo. Hay tres diferencias con el caso cuadrático que importan para lo que sigue.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig6_fondo_starobinsky.pdf}
+\caption{Fondo de RG y UG con el potencial de Starobinsky, con las mismas condiciones iniciales. (a) $H(N)$; (b) $\epsilon_1(N)$; (c) $\phi(N)$; (d) razón $|Q'(\phi)|/|V'(\phi)|$ entre el empuje de $Q$ y el del potencial en UG, con $Q'=(\dd Q/\dd N)/(\dd\phi/\dd N)$. Generada por \texttt{make\_figures\_potenciales.py}.}
+\label{fig:fondostaro}
+\end{figure}
+
+\emph{Duración.} Con el mismo $\phi_i$, RG dura $386.7$ e-folds y UG $100$ (en el cuadrático eran $161.8$ y $100$). En RG las primeras $\sim300$ e-folds transcurren en el plateau, con $\epsilon_1\sim10^{-6}$; ahí $H$ es casi constante (panel a).
+
+\emph{Un transitorio inicial dominado por $Q$.} La velocidad inicial $\dot\phi_i=-V'/\sqrt{3V}$ es la de slow-roll de $V$ sola y queda unas treinta veces por debajo del atractor de UG. En UG el término $-\dot Q/\dot\phi$ de \eqref{eq:KGQ} lo compensa en una fracción de e-fold: $\epsilon_1$ salta de $5\times10^{-6}$ a $1.3\times10^{-3}$ en $\Delta N=0.05$ (panel b). El cociente $|Q'|/|V'|$ (panel d) es del orden de $10^2$ al inicio, $9$ en $N=10$, $1.2$ en $N=30$, $0.4$ en $N=40$ y $0.03$ en $N=60$: durante las primeras $\sim30$ e-folds el inflatón de UG está empujado más por $Q$ que por el potencial, y a partir de $N\approx50$ la dinámica es la de Starobinsky. Es una consecuencia de imponer las mismas condiciones iniciales y de la forma de $Q(N)$, y no una propiedad de UG.
+
+\emph{El final de la inflación.} Al terminar ($\epsilon_1=1$) es $3H^2\approx0.20$ y $V\approx0.23$ (en unidades de $M^2\MP^2$): el presupuesto energético del ejemplo satisface $U=2K$ al evento $\epsilon_1=1$. Estos valores no aíslan la contribución causal de $\Lambda_0$; no se realizó una comparación controlada variando esa constante con las demás condiciones fijadas. Una extensión en la que $Q$ tienda a cero y el campo alcance el mínimo de $V$ dejaría una contribución efectiva negativa por $\Lambda_0=-Q_i$. Esa extrapolación requiere extender la prescripción $Q(N)$ y la solución después de la inflación; no se integró esa etapa ni se demuestra un futuro anti-de Sitter.
+
+\subsection{Por qué comparar a igual $N_*$}
+\label{sec:igualN}
+
+La figura~\ref{fig:igualk} muestra la comparación a igual $k$ (la de la sección~\ref{sec:resultados}) para los dos potenciales. En el cuadrático UG suprime $P_T$ (de $0.914$ a $0.344$); en Starobinsky lo suprime menos (de $0.947$ a $0.796$).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig7_igual_k_potenciales.pdf}
+\caption{Comparación a igual $k$ comóvil (mismo $a_i$ y mismas condiciones iniciales), cuadrático y Starobinsky. Arriba $P_T(k)$; abajo el cociente UG/RG. Datos de \texttt{run\_spectrum.py} (\texttt{resultados/PT\_k.csv} y \texttt{resultados/starobinsky/PT\_k.csv}); generada por \texttt{make\_figures\_potenciales.py}.}
+\label{fig:igualk}
+\end{figure}
+
+Pero ese criterio compara épocas distintas. Con el mismo $a_i$ y la misma $k$, los cruces se obtienen resolviendo $k=aH$ por separado y, como $H$ difiere, no ocurren en el mismo $N$, mientras que la inflación termina en $N_{\rm end}=161.8$ (RG) y $100$ (UG) en el cuadrático, y en $386.7$ y $100$ en Starobinsky. En Starobinsky, por ejemplo, el instante $N=40$ está 347 e-folds antes del final de RG y 60 antes del final de UG; los modos que cruzan en ese instante tienen distinto $k$: no es la misma escala observacional. Lo que se compara con datos es $P_T$ y $n_T$ en el modo que salió del horizonte $N_*$ e-folds antes del final de \emph{la propia inflación} (la relación con la escala observable requeriría además modelar el recalentamiento, que no se hace). Por eso se agrega como resultado principal la comparación a igual $N_*$, con $N_*=50$ y $60$ en cada modelo, y se deja la de igual $k$ como secundaria. El script es \texttt{compare\_potentials.py}.
+
+\subsection{Resultados a igual $N_*$}
+\label{sec:resultadosN}
+
+\begin{table}[t]
+\centering\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+Potencial & $N_*$ & $P_T^{\rm UG}/P_T^{\rm RG}$ & $n_T^{\rm RG}$ & $n_T^{\rm UG}$ & $r_{\rm std}^{\rm RG}$ & $r_{\rm std}^{\rm UG}$ & $n_{s,{\rm std}}^{\rm UG}$\\
+\midrule
+cuadrático  & 50 & 1.575 & $-2.04\times10^{-2}$ & $-1.59\times10^{-2}$ & 0.160 & 0.125 & 0.968\\
+cuadrático  & 60 & 1.516 & $-1.70\times10^{-2}$ & $-1.38\times10^{-2}$ & 0.133 & 0.109 & 0.975\\
+Starobinsky & 50 & 0.902 & $-5.5\times10^{-4}$ & $-6.7\times10^{-4}$ & $4.4\times10^{-3}$ & $5.4\times10^{-3}$ & 0.986\\
+Starobinsky & 60 & 0.904 & $-3.9\times10^{-4}$ & $-7.0\times10^{-4}$ & $3.1\times10^{-3}$ & $5.6\times10^{-3}$ & 1.022\\
+\bottomrule
+\end{tabular}
+\caption{Comparación a igual $N_*$ (e-folds antes del final de la inflación de cada modelo), con $m=6\times10^{-6}\MP$ y $M=1.14\times10^{-5}\MP$. $P_T$ y $n_T$ son resultados. $r_{\rm std}=P_T/P_\mathcal{R}^{\rm LO}$ y $n_{s,{\rm std}}=1-2\epsilon_1-\epsilon_2$ usan la fórmula escalar \emph{estándar de RG evaluada con el fondo de UG}: para UG son condicionales, porque el sector escalar con difusión no está derivado (sección~\ref{sec:abiertos}). Datos: \texttt{resultados/comparacion\_N\_star.csv}.}
+\label{tab:igualN}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig8_igual_Nstar.pdf}
+\caption{Comparación a igual $N_*$ para los dos potenciales. (a) Cociente $P_T^{\rm UG}/P_T^{\rm RG}$ a igual $N_*$ (marcadores naranja) y su rango a igual $k$ (barra gris). (b) $-n_T$. (c) $r_{\rm std}$, con UG condicional (huecos). Generada por \texttt{make\_figures\_potenciales.py}.}
+\label{fig:igualN}
+\end{figure}
+
+El resultado, resumido en la tabla~\ref{tab:igualN} y la figura~\ref{fig:igualN}, es doble.
+
+\emph{En el cuadrático el signo de la diferencia depende del criterio.} A igual $k$ UG suprime $P_T$ (por un factor entre $0.914$ y $0.344$); a igual $N_*$ lo \emph{aumenta} (por $1.5$--$1.6$). Con la masa $m$ fija en ambos modelos, la razón es que la inflación de UG termina antes en el potencial (con $\phi\approx8.4\,\MP$, frente a $\phi\approx1.00934\,\MP$ en RG (evento $\epsilon_H=1$; $\sqrt2\,\MP$ es la aproximación $\epsilon_V=1$)), de modo que 60 e-folds antes de su final el campo está más arriba y $H$ es mayor: a $N_*=60$ el modo de UG sale en $N=40$ con $\phi=20.6\,\MP$ y $H=7.76\,m$, y el de RG en $N=101.8$ con $\phi=15.4\,\MP$ y $H=6.30\,m$, de donde $(H_{\rm UG}/H_{\rm RG})^2=1.52$. Esa diferencia de posición en el potencial domina sobre el efecto directo de $\Lambda_0$ sobre $H$. Por lo tanto la afirmación de la sección~\ref{sec:resultados} de que ``UG suprime $P_T$'' \emph{no es robusta}: es cierta a igual $k$ y falsa a igual $N_*$. Ninguno de los dos criterios es la comparación observacional (falta modelar el recalentamiento y, para UG, el sector escalar), y las dos son consecuencia de fijar $Q_i$, $\gamma$ y $\Lambda_0$; la enseñanza es que el signo mismo de $P_T^{\rm UG}/P_T^{\rm RG}$ no es una propiedad de UG.
+
+\emph{En Starobinsky la magnitud depende del criterio.} $P_T^{\rm UG}/P_T^{\rm RG}\approx0.90$ a $N_*=50$ y $60$, y entre $0.947$ y $0.796$ a igual $k$ (dos resultados distintos, no un cociente constante): a igual $N_*$ la reducción es $9.6$--$9.8\%$ y a igual $k$ abarca $5.3$--$20.4\%$ en la malla con extremos refinables; el valor del pivote sale del cociente de $H^2$ en los dos pivotes: a $N_*=60$, $H=0.470\,M$ en UG frente a $0.494\,M$ en RG, de donde $0.90$. Las diferencias de $n_T$ son menores que $3.1\times10^{-4}$; no se evaluó su detectabilidad instrumental. En Starobinsky, entonces, el efecto de la difusión sobre el sector tensorial es una modificación dependiente del fondo, la difusión elegida y el criterio de comparación, como corresponde al mecanismo de la sección~\ref{sec:tensores}.
+
+\emph{Cautela sobre $r$ y $n_s$.} Con la fórmula escalar estándar evaluada con el fondo de UG saldría $n_s=0.986$ (a $N_*=50$) y $1.022$ (a $N_*=60$) en Starobinsky, y $0.968$--$0.975$ en el cuadrático, y $r$ apenas modificado. Esos números valdrían solo si el sector escalar de UG con difusión fuera el estándar, lo que no se derivó (sección~\ref{sec:acoplamiento}); no se los debe leer como predicciones de UG. Sí es un dato que el fondo de UG cambia $\epsilon_1$ y $\epsilon_2$ en el pivote (a $N_*=60$ y para Starobinsky, $\epsilon_1=3.5\times10^{-4}$ frente a $1.9\times10^{-4}$ en RG, y $\epsilon_2=-0.022$ frente a $+0.032$), porque el pivote de UG cae en $N=40$, donde $|Q'|/|V'|\approx0.4$ todavía.
+
+\subsection{Controles de Starobinsky}
+\label{sec:controlesstaro}
+
+La batería de controles se repite para Starobinsky (\texttt{python3 checks.py starobinsky}), y pasan los ocho que le corresponden: C1.2 (slow-roll de \cite{martin14}), C1.3-S, C2 (convergencia), C3.1--C3.5. Se omiten C0 y C1.1, que no dependen del potencial. El C1.3-S contrasta, en RG y a $N_*=50$ y $60$: $r=P_T/P_\mathcal{R}^{\rm LO}$ con $12/N_*^2$ (a menos del $15\%$; sale $-7.6\%$ a $N_*=60$), $n_s=1-2\epsilon_1-\epsilon_2$ con $1-2/N_*$ (a menos de $3\times10^{-3}$; sale $+7\times10^{-4}$ a $N_*=60$), $n_T$ de los modos con la expansión de \cite{martin14} (a $5\times10^{-5}$), y $A_s$ con Planck a un $10\%$; este último \emph{no es independiente}, porque $M$ se calibró con ese mismo dato.
+
+Hubo dos fallos en la primera corrida, y conviene decir cómo se resolvieron, porque en ambos casos se ajustó un criterio \emph{después} de ver el resultado. (i) El control C1.2 exigía que el residuo de la expansión de slow-roll truncada en el segundo término (NLO) fuera menor que $20\,\epsilon_1^2$. En Starobinsky $\epsilon_2\gg\epsilon_1$ y el residuo es $O(\epsilon_1\epsilon_2)$: según el desarrollo de \cite{martin14} vale $-0.25\,\epsilon_1\epsilon_2=-1.6\times10^{-6}$ para $\epsilon_1=1.9\times10^{-4}$ y $\epsilon_2=0.032$, y el código dio $-1.5\times10^{-6}$. Se generalizó la cota a $20\,\epsilon_1\max(\epsilon_1,|\epsilon_2|/2)$, que coincide con la anterior en el cuadrático; el criterio principal (el residuo a segundo orden) no cambió y pasaba con un margen de $\sim100$. (ii) El control C3.2, que verifica $\dot H=-\dot\phi^2/2$ sobre la solución integrada, falló en $N<0.05$ de UG (error $1.6\times10^{-5}$ contra una cota de $10^{-6}$) por el salto inicial de $\epsilon_1$ descripto arriba, donde los splines del fondo no lo resuelven. El error converge al refinar la malla ($1.6\times10^{-5}$, $3.3\times10^{-6}$, $1.0\times10^{-6}$ para $2\times10^4$, $8\times10^4$ y $2\times10^5$ puntos) y en el dominio juzgado $1\le N\le N_{\rm end}-1$ el máximo RG/UG sobre 4000 puntos es $7.43\times10^{-9}$; para Starobinsky el control se juzga desde $N=1$ y el error del primer e-fold se guarda sin juzgar. Ambos cambios están en \texttt{checks.py}, con su justificación en el texto de la función.
+
+Además, el código de los modos se reescribió en variables adimensionales ($q=k/aH$), porque con $N\gtrsim350$ los factores $a^2$ y $k^2$ desbordan la aritmética de doble precisión. Es una reescritura algebraicamente equivalente; los diez controles del cuadrático siguen pasando, incluido el de mutaciones.
+
+\subsection{Balance entre los dos potenciales}
+\label{sec:balancepot}
+
+\begin{table}[t]
+\centering\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}p{2.1cm}p{6.3cm}p{6.3cm}@{}}
+\toprule
+ & \textbf{Cuadrático} & \textbf{Starobinsky}\\
+\midrule
+A favor & Un parámetro; slow-roll simple; efecto de UG grande y fácil de ver; ya validado con la batería completa. & RG lo ajusta ($n_s\approx0.967$, $r\approx3\times10^{-3}$); motivado por $R^2$ en RG; plateau con slow-roll limpio; el efecto depende del criterio de comparación y de la difusión elegida.\\
+En contra & $r\approx0.13$ en tensión con los datos; recorrido $\phi_*\approx15\,\MP$; la magnitud del efecto depende de que $\Lambda_0=-Q_i$ agote la energía al final, rasgo propio del potencial. & El efecto de UG en $P_T$ es $\sim10\%$ y en $n_T$ pequeño ($<3.1\times10^{-4}$, sin evaluar su detectabilidad); duración desigual ($387$ frente a $100$); transitorio inicial dominado por $Q$; el origen $R^2$ no se demuestra en UG.\\
+Sensibilidad al criterio & El signo de $P_T^{\rm UG}/P_T^{\rm RG}$ cambia entre igual $k$ e igual $N_*$. & El cociente es $\approx0.90$ a igual $N_*$ y $0.947$--$0.796$ a igual $k$.\\
+\bottomrule
+\end{tabular}
+\caption{Comparación de los dos potenciales para este problema.}
+\label{tab:balancepot}
+\end{table}
+
+La tabla~\ref{tab:balancepot} resume el balance. Para el objetivo del trabajo, que es ver cómo llega la difusión al espectro tensorial, Starobinsky es más informativo y más razonable físicamente: muestra que con un plateau el efecto es una corrección de orden $Q_i/V_i$ a $H^2$. El cuadrático sigue siendo útil como caso de efecto grande, y como advertencia de que el signo del cociente depende del criterio. Ninguno de los dos potenciales cambia la conclusión analítica de la sección~\ref{sec:tensores}.
+
+El final integrado de RG cuadrático es $\phi=1.00934\,\MP$ para $\epsilon_H=1$; $\sqrt{2}\,\MP$ corresponde a la aproximación $\epsilon_V=1$.
+
+A igual $k$ los cruces se obtienen resolviendo $k=a(N)H(N)$ por separado en RG y UG; no implican el mismo $N$ si $H$ difiere. Identificar una escala observada requiere además normalización de $a$ e historia posterior.

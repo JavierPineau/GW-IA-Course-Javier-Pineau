@@ -1,0 +1,74 @@
+{
+  "external_planck_lnAs": {
+    "value": 3.044,
+    "description": "ln(10^10 A_s), Planck 2018",
+    "url": "https://arxiv.org/html/1807.06211v2",
+    "selection": "TT,TE,EE+lowE+lensing, modelo base LambdaCDM",
+    "pivot_Mpc_inverse": 0.05,
+    "confidence": "media; error 68%",
+    "method": "transcripción de referencia; no salida cosmológica propia"
+  },
+  "external_planck_lnAs_sigma": {
+    "value": 0.014,
+    "description": "Error de ln(10^10 A_s)",
+    "url": "https://arxiv.org/html/1807.06211v2",
+    "selection": "TT,TE,EE+lowE+lensing, modelo base LambdaCDM",
+    "pivot_Mpc_inverse": 0.05,
+    "confidence": "68%",
+    "method": "transcripción de referencia; no salida cosmológica propia"
+  },
+  "external_planck_ns": {
+    "value": 0.9649,
+    "description": "Índice escalar Planck 2018",
+    "url": "https://arxiv.org/html/1807.06211v2",
+    "selection": "TT,TE,EE+lowE+lensing",
+    "pivot_Mpc_inverse": 0.05,
+    "confidence": "68%",
+    "method": "transcripción de referencia; no salida cosmológica propia"
+  },
+  "external_planck_ns_sigma": {
+    "value": 0.0042,
+    "description": "Error del índice escalar",
+    "url": "https://arxiv.org/html/1807.06211v2",
+    "selection": "TT,TE,EE+lowE+lensing",
+    "pivot_Mpc_inverse": 0.05,
+    "confidence": "68%",
+    "method": "transcripción de referencia; no salida cosmológica propia"
+  },
+  "external_planck_r": {
+    "value": 0.1,
+    "description": "Límite superior r, Planck solo",
+    "url": "https://arxiv.org/html/1807.06211v2",
+    "selection": "Planck 2018, LambdaCDM+r",
+    "pivot_Mpc_inverse": 0.002,
+    "confidence": "95%",
+    "method": "transcripción de referencia; no salida cosmológica propia"
+  },
+  "external_planck_BK14_r": {
+    "value": 0.064,
+    "description": "Límite histórico Planck+BK14, versión v1",
+    "url": "https://arxiv.org/abs/1807.06211v1",
+    "selection": "Planck 2018 + BK14",
+    "pivot_Mpc_inverse": 0.002,
+    "confidence": "95%",
+    "method": "transcripción de referencia; no salida cosmológica propia"
+  },
+  "external_planck_BK15_r": {
+    "value": 0.056,
+    "description": "Límite Planck+BK15, versión v2",
+    "url": "https://arxiv.org/html/1807.06211v2",
+    "selection": "Planck 2018 + BK15",
+    "pivot_Mpc_inverse": 0.002,
+    "confidence": "95%",
+    "method": "transcripción de referencia; no salida cosmológica propia"
+  },
+  "external_BK18_r": {
+    "value": 0.036,
+    "description": "Límite BICEP/Keck XIII",
+    "url": "https://arxiv.org/abs/2110.00483v1",
+    "selection": "BK18 + mapas Planck y WMAP; modelo LambdaCDM+r y foregrounds",
+    "pivot_Mpc_inverse": 0.05,
+    "confidence": "95%",
+    "method": "transcripción de referencia; no salida cosmológica propia"
+  }
+}

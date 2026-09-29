@@ -1,0 +1,89 @@
+\section{El modelo de radiación con difusión Q \cite{leon22,piccirilli23}: radiación pura y difusión $Q$}
+\label{sec:leon}
+
+La sección~\ref{sec:acoplamiento} mostró que el modelo de un inflatón con $Q(N)$ prescripta no es el de la literatura del grupo. Esta sección repite el cálculo del espectro tensorial con el fondo que usan \cite{leon22} y \cite{piccirilli23}, sin inflatón y con $\delta Q=0$. Lo hecho es el sector tensorial completo; el sector escalar no se deriva y se trata aparte (subsección~\ref{sec:leonescalar}).
+
+\subsection{El fondo}
+\label{sec:leonfondo}
+
+Según \cite{leon22} (Secs.~II--III) el contenido de materia es un fluido de radiación pura, $p=\rho/3$, con la difusión $Q$ homogénea y la constante de integración $\Lambda_*=0$ \etq{C}. Con $\MP=1$ y $N=\ln a$, las ecuaciones de fondo son
+\begin{equation}
+3H^2=\rho+Q,\qquad 2\dot H+3H^2=-\tfrac13\rho+Q,\qquad \rho_{,N}+Q_{,N}+4\rho=0,
+\label{eq:leonfondo}
+\end{equation}
+que son \eqref{eq:H2UG} y la continuidad de la sección~\ref{sec:fondo} con $V\to0$ y radiación en lugar del inflatón. La aceleración no la produce un inflatón sino $Q$: como $\epsilon_1=2/(1+Q/\rho)$ \cite[Eq.~18]{leon22}, la inflación ($\epsilon_1<1$) equivale a $Q>\rho$. El fondo entero queda determinado por $\epsilon_1(N)$ y una normalización, porque $\dd\ln H/\dd N=-\epsilon_1$ y $\rho+Q=3H^2$ dan
+\begin{equation}
+H(N)=H_{\rm ref}\,\ee^{-\int_{N_{\rm ref}}^{N}\epsilon_1\,\dd\bar N},\qquad \rho=\tfrac32\,\epsilon_1H^2,\qquad Q=\tfrac32\,(2-\epsilon_1)H^2,
+\label{eq:leonrec}
+\end{equation}
+que son las Eqs.~(32)--(33) de \cite{leon22} \etq{C}, verificadas acá en su forma cerrada para el escenario 1 (subsección~\ref{sec:leoncontroles}). Se elige entonces una función $\epsilon_1(N)$ y se reconstruye $Q(N)$: es la ``reconstrucción'' de \cite{leon22,piccirilli23}. Se implementan los tres escenarios de \cite{piccirilli23} (Sec.~III):
+\begin{itemize}[leftmargin=1.6em,itemsep=2pt]
+\item \emph{Escenario 1}: $\epsilon_1=(1+N_f-N)^{-\gamma}$, con $N_f=100$, $\rho_{\rm end}=10^{-11}\MP^4$ y $\gamma=2.02$ (el punto de referencia de \cite{piccirilli23}, Sec.~IV.A). Es el caso principal. Aquí $H_{\rm end}=2.58\times10^{-6}\MP$ y $H_{\rm ini}=6.82\times10^{-6}\MP$.
+\item \emph{Escenario 2}: $\epsilon_1=\tfrac23[1+\tanh\alpha(N-N_f)]+\ee^{-4\alpha N}$ (Eq.~34 de \cite{leon22}). Está en el código, pero \emph{no se analiza}: con $N_f=100$ no se puede ajustar (con $\alpha=0.0229$ y $N_f=371$, que es lo que necesita \cite{piccirilli23}, el slow-roll recién vale unos 120 e-folds antes del final, y $\epsilon_1=0.2$--$0.3$ a $50$--$60$), no fijé el pivote de ese artículo, y la integración independiente de la continuidad está mal condicionada en la formulación directa ensayada (\ref{sec:leoncontroles}).
+\item \emph{Escenario 3}: $\epsilon_1(N)=\epsilon_V(\phi(N))$ de un potencial slow-roll, con $\dd\phi/\dd(N_f-N)=V'/V$ y el final en $\epsilon_V=1$; se aplica a los potenciales cuadrático y de Starobinsky (sección~\ref{sec:potenciales}), con $N_f=100$ y $\rho_{\rm end}=10^{-11}\MP^4$.
+\end{itemize}
+Una diferencia con las secciones anteriores es que \emph{no se reajusta la escala en esta reproducción}: se adopta la normalización de la referencia, con $\rho_{\rm end}=10^{-11}\MP^4$ y $N_f$ fijos como entradas de la literatura, de modo que la amplitud de $P_T$ y $A_s$ quedan determinadas \emph{condicionalmente a esa normalización}, no calibradas aquí (en las secciones~\ref{sec:resultados} y~\ref{sec:potenciales}, $m$ y $M$ se calibraban con $A_s$). La advertencia de que los parámetros de la referencia se eligieron con su propia fórmula escalar acompaña a esta afirmación. La figura~\ref{fig:fondoleon} muestra el fondo del escenario 1.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig9_fondo_leon.pdf}
+\caption{Modelo de radiación con difusión Q \cite{leon22,piccirilli23}, escenario 1 ($N_f=100$, $\rho_{\rm end}=10^{-11}\MP^4$). (a) $\epsilon_1(N)$ (dato) para $\gamma=2.02$ y $1.5$. (b) $Q$ y $\rho$ reconstruidos para $\gamma=2.02$: $Q>\rho$ mientras dura la inflación y se igualan al final. (c) $H(N)$. Generada por \texttt{make\_figures\_leon.py}.}
+\label{fig:fondoleon}
+\end{figure}
+
+\subsection{Consecuencia para el espectro tensorial}
+\label{sec:leonPT}
+
+El resultado analítico de la sección~\ref{sec:tensores} (la ecuación de los modos es la de RG, con $X=0$) se aplica sin cambios, porque solo usa que $Q$ es escalar y que $T^i{}_j$ no tiene parte TT. El código de los modos (\texttt{modes.py}) es el mismo; cambia solo el fondo, que ahora sale de \eqref{eq:leonrec}. El término de masa $X$, calculado con $\rho$, $Q$, $H$ y la derivada numérica de $\ln H$ (sin suponerlo nulo), vale a lo sumo $2.5\times10^{-10}H^2$ para $N\le N_{\rm end}-0.5$.
+
+El punto importante es que $P_T$ depende solo de $H(N)$ y $\epsilon_1(N)$, y con \eqref{eq:leonrec} esas funciones son las de \emph{cualquier} inflatón de RG que las reproduzca. Se comprobó: con $\dd\phi/\dd N=-\sqrt{2\epsilon_1}$ y $V=(3-\epsilon_1)H^2$ (las relaciones estándar de RG) se reconstruye un potencial $V(\phi)$, se integra la ecuación de Klein--Gordon de RG con él desde las mismas condiciones iniciales (un camino de código distinto), y sale el mismo $H(N)$ ($\max|\Delta\ln H|=8\times10^{-7}$) y el mismo $P_T$ (diferencia relativa $\sim10^{-10}$ en $N_*=50,60$ y $\le1.1\times10^{-6}$ en los 28 modos que alcanzan $q=10^{-3}$ de la figura~\ref{fig:PTleon}a; los otros dos se evalúan al final y se rotulan aparte). \emph{Dicho de otro modo: con el modelo de radiación con difusión Q \cite{leon22,piccirilli23} no existe una diferencia UG--RG en el sector tensorial a igual $H(N)$}; la diferencia entre marcos está en cuáles historias $H(N)$ se realizan (con $Q$ y radiación, o con un potencial) y en el sector escalar.
+
+\subsection{Resultados}
+\label{sec:leonres}
+
+\begin{table}[t]
+\centering\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+Escenario & $N_*$ & $\epsilon_1$ & $P_T$ & $n_T$ & $A_s^{\rm PL}$ & $r_{\rm PL}$ & $n_{s,{\rm std}}$\\
+\midrule
+1, $\gamma=2.02$ & 50 & $3.6\times10^{-4}$ & $9.26\times10^{-12}$ & $-7.2\times10^{-4}$ & $1.63\times10^{-9}$ & $5.7\times10^{-3}$ & 0.960\\
+1, $\gamma=2.02$ & 57 & $2.7\times10^{-4}$ & $9.30\times10^{-12}$ & $-5.5\times10^{-4}$ & $2.12\times10^{-9}$ & $4.4\times10^{-3}$ & 0.965\\
+1, $\gamma=2.02$ & 60 & $2.5\times10^{-4}$ & $9.32\times10^{-12}$ & $-5.0\times10^{-4}$ & $2.35\times10^{-9}$ & $4.0\times10^{-3}$ & 0.966\\
+1, $\gamma=1.5$ & 60 & $2.1\times10^{-3}$ & $4.42\times10^{-11}$ & $-4.2\times10^{-3}$ & $1.32\times10^{-9}$ & $3.4\times10^{-2}$ & 0.971\\
+3, Starobinsky & 60 & $1.9\times10^{-4}$ & $4.60\times10^{-12}$ & $-3.7\times10^{-4}$ & $1.55\times10^{-9}$ & $3.0\times10^{-3}$ & 0.968\\
+3, cuadrático & 60 & $8.3\times10^{-3}$ & $1.63\times10^{-10}$ & $-1.7\times10^{-2}$ & $1.24\times10^{-9}$ & $0.13$ & 0.967\\
+\bottomrule
+\end{tabular}
+\caption{Espectro tensorial con el modelo de radiación con difusión Q \cite{leon22,piccirilli23} (\texttt{resultados/leon/comparacion.csv}; hay filas adicionales para $N_*=50$ del escenario 3). $P_T$ y $n_T$ son resultados. $A_s^{\rm PL}=H^2/(8\pi^2\epsilon_1)$ (Eq.~41 de \cite{piccirilli23}), $r_{\rm PL}=P_T/P_\mathcal{R}$ con esa fórmula y $n_{s,{\rm std}}=1-2\epsilon_1-\epsilon_2$ dependen del sector escalar, que no está derivado. Planck: $A_s=2.10\times10^{-9}$.}
+\label{tab:leon}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{fig10_leon_PT_As.pdf}
+\caption{(a) $P_T$ de los modos con el fondo de radiación más $Q$ (línea) y con el inflatón de RG de potencial reconstruido (círculos): mismo $H(N)$, mismo espectro. (b) $A_s$ predicha y $r$ en el punto de referencia de \cite{piccirilli23} ($\gamma=2.02$, $N_*=57$) según tres fórmulas escalares, todas condicionales. Generada por \texttt{make\_figures\_leon.py}.}
+\label{fig:PTleon}
+\end{figure}
+
+La tabla~\ref{tab:leon} y la figura~\ref{fig:PTleon} resumen. Para el escenario 1 con $\gamma=2.02$ y $N_*=57$ (es decir, $N=43$ e-folds desde el inicio, el punto que \cite{piccirilli23} marca como consistente con los datos), el fondo da $P_T=9.3\times10^{-12}$, $n_T=-5.5\times10^{-4}$ y, con la fórmula de \cite{piccirilli23}, $A_s=2.12\times10^{-9}$, un $1.1\%$ por encima de Planck sin ajustar nada. Que $A_s$ salga en el valor de Planck cuando $\rho_{\rm end}$ y $N_f$ están fijos es un control de la implementación (\ref{sec:leoncontroles}). El valor $\gamma=1.5$, que \cite{piccirilli23} descarta con los datos de $n_s$ y $A_s$, da acá, a $N_*=60$, una $A_s$ un $37\%$ menor que la de Planck. Los espectros son casi planos en $k$ con una pendiente roja: para $\gamma=2.02$, $P_T$ vale $9.32\times10^{-12}$ en el modo que sale $60$ e-folds antes del final y $9.26\times10^{-12}$ en el que sale $50$ antes, con $n_T\approx-2\epsilon_1$.
+
+\subsection{El mapeo del escenario 3 y el desfasaje de normalización}
+\label{sec:leonmapeo}
+
+CL7 compara únicamente la razón $P_T(N_*=60)/P_T(N_*=50)$ del mapeo con la de RG numérico, con $H$ igual al final. La discrepancia de esa razón es menor que $0.3\%$; no es un barrido de toda la forma. Los offsets absolutos conservados son de $23$--$29\%$. El criterio absoluto inicial de $10\%$ falló y se sustituyó por un criterio exploratorio de $3\%$ para la razón, después de observar el resultado. La explicación histórica en términos de acumulación de $\ln H$ y $\epsilon_V-\epsilon_H$ no está comprobada por un diagnóstico conservado que aísle esa causa.
+
+\subsection{Controles}
+\label{sec:leoncontroles}
+
+Los siete controles de \texttt{checks\_leon.py} pasan: (CL1) la continuidad de radiación integrada numéricamente con el $Q(N)$ de la reconstrucción reproduce $\rho$, $H$ y $\epsilon_1$ a $1.7\times10^{-8}$ (escenarios 1 y 3); (CL2) $H^2$, $\rho$ y $Q$ del escenario 1 coinciden con las expresiones cerradas de \cite{piccirilli23} (Eqs.~46--48) a $3\times10^{-11}$; (CL3) el término de masa $X/H^2$ es $\le2.5\times10^{-10}$; (CL4) el inflatón de RG con el potencial reconstruido reproduce $H(N)$ y $P_T$; (CL5) $P_T$ coincide con el desarrollo de slow-roll de \cite{martin14} a segundo orden, con el mismo criterio de la sección~\ref{sec:controlesstaro}; (CL6) $A_s$ en el punto de \cite{piccirilli23} está a $1.1\%$ de Planck; (CL7) la razón $P_T(60)/P_T(50)$ del escenario 3 coincide con la de RG numérico a $\lesssim0.3\%$.
+
+Dos cosas se ajustaron o se dejaron fuera \emph{después} de ver un resultado. CL1 se restringió a los escenarios 1 y 3, porque en el 2 la densidad $\rho$ llega a $\sim10^{-140}$ y la integración directa ensayada pierde precisión por cancelación (se obtiene de restar cantidades de orden uno; el condicionamiento crece como $\ee^{4N}$, y por eso \cite{leon22} grafica $\rho$ en escala logarítmica); no se probaron formulaciones reescaladas o logarítmicas; para ese escenario se conserva solo la reconstrucción desde $\epsilon_1$. CL7 se planteó primero como $|P_T^{\rm RG}/P_T^{\rm mapa}-1|\le10\%$, criterio fijado antes de correr, y \emph{falló} ($+23\%$ a $+29\%$); se reemplazó por un criterio exploratorio del 3\% sobre la razón entre dos pivotes, sin probar toda la forma y el desfasaje absoluto pasó a ser un resultado (subsección~\ref{sec:leonmapeo}).
+
+\subsection{El sector escalar y $r$}
+\label{sec:leonescalar}
+
+El sector escalar no se derivó. Se calculó $A_s$ y $r$ con tres fórmulas alternativas para $P_\mathcal{R}$, todas condicionales: la de \cite{piccirilli23}, $H^2/(8\pi^2\epsilon_1)$; la de \cite{leon22} tal como está impresa (Eq.~66), con un factor $3^{3/2}$ adicional; y una tercera que corresponde a mi hipótesis sobre el origen de ese factor ($P_\mathcal{R}=H^2/(8\pi^2\epsilon_1c_s)$ con $c_s^2=1/3$, sin verificar contra el texto de \cite{garriga99}). En el punto de referencia ($\gamma=2.02$, $N_*=57$) resultan $A_s=2.12$, $11.0$ y $3.67$ (en unidades de $10^{-9}$) y $r=4.4\times10^{-3}$, $8.4\times10^{-4}$ y $2.5\times10^{-3}$, respectivamente. Solo la primera reproduce el valor de Planck, pero eso \emph{no} establece que sea la correcta: los parámetros de \cite{piccirilli23} se eligieron con esa fórmula, de modo que la consistencia con los datos es circular. Lo que sí muestra es que el factor $3^{3/2}$ de \cite{leon22} no es un detalle: con él, el punto de referencia queda $5$ veces por encima de $A_s$ (y $r$, cinco veces más chico). Resolver el factor requiere derivar el sector escalar, y sigue abierto (sección~\ref{sec:abiertos}).
+
+CL6 admite un desvío relativo del $10\%$; el obtenido es $+1.0816\%$, aproximadamente $1.1\%$.
