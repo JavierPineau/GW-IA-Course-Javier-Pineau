@@ -9,7 +9,8 @@
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto.",
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más."
-  ]
+  ],
+  "output": "codigo/resultados/checks.json::meta.phi_i"
  },
  "quad_Nend_RG": {
   "value": 161.83124111716106,
@@ -19,7 +20,8 @@
   "from_library": "numpy 1.26.4, scipy 1.13.1 (solve_ivp DOP853, CubicSpline, brentq)",
   "choices": [
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto."
-  ]
+  ],
+  "output": "codigo/resultados/checks.json::meta.N_end_RG"
  },
  "quad_ratio_equal_k_first": {
   "value": 0.9144634012803122,
@@ -32,7 +34,8 @@
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más.",
    "Comparación a igual k comóvil con el mismo a_i: mezcla épocas distintas (ver quad_ratio_equal_Nstar_60)."
-  ]
+  ],
+  "output": "codigo/resultados/PT_k.csv::ratio_UG_over_RG (primera fila)"
  },
  "quad_ratio_equal_k_last": {
   "value": 0.3441298152448522,
@@ -44,7 +47,8 @@
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto.",
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más."
-  ]
+  ],
+  "output": "codigo/resultados/PT_k.csv::ratio_UG_over_RG (última fila)"
  },
  "quad_ratio_equal_Nstar_50": {
   "value": 1.574618822351915,
@@ -57,7 +61,8 @@
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más.",
    "Criterio a igual N* (decisión del usuario, 2026-09-21); no modela el recalentamiento."
-  ]
+  ],
+  "output": "codigo/resultados/comparacion_N_star.json::rows[potential=quadratic, model=UG, N_star=50].PT_UG_over_RG"
  },
  "quad_ratio_equal_Nstar_60": {
   "value": 1.5163624877754753,
@@ -70,7 +75,8 @@
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más.",
    "Criterio a igual N* (decisión del usuario, 2026-09-21); no modela el recalentamiento."
-  ]
+  ],
+  "output": "codigo/resultados/comparacion_N_star.json::rows[potential=quadratic, model=UG, N_star=60].PT_UG_over_RG"
  },
  "staro_phi_i": {
   "value": 7.6604436259549304,
@@ -82,7 +88,8 @@
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto.",
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más."
-  ]
+  ],
+  "output": "codigo/resultados/starobinsky/checks.json::meta.phi_i"
  },
  "staro_Nend_RG": {
   "value": 386.7451358742514,
@@ -92,7 +99,8 @@
   "from_library": "numpy 1.26.4, scipy 1.13.1 (solve_ivp DOP853, CubicSpline, brentq)",
   "choices": [
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto."
-  ]
+  ],
+  "output": "codigo/resultados/starobinsky/checks.json::meta.N_end_RG"
  },
  "staro_M_calibrated": {
   "value": 1.14e-05,
@@ -103,7 +111,8 @@
   "choices": [
    "Es una CALIBRACIÓN, no una validación; un valor de memoria (1.3e-5, N*~52) se descartó antes de correr los controles.",
    "Solo se usa la forma del potencial; no se afirma que el origen R^2 valga en UG."
-  ]
+  ],
+  "output": "codigo/config.py::M_STAROBINSKY (entrada, no salida)"
  },
  "staro_ratio_equal_Nstar_50": {
   "value": 0.9016953421734708,
@@ -115,7 +124,8 @@
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto.",
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más."
-  ]
+  ],
+  "output": "codigo/resultados/comparacion_N_star.json::rows[potential=starobinsky, model=UG, N_star=50].PT_UG_over_RG"
  },
  "staro_ratio_equal_Nstar_60": {
   "value": 0.9035027627546985,
@@ -127,7 +137,8 @@
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto.",
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más."
-  ]
+  ],
+  "output": "codigo/resultados/comparacion_N_star.json::rows[potential=starobinsky, model=UG, N_star=60].PT_UG_over_RG"
  },
  "staro_ratio_equal_k_first": {
   "value": 0.9470375382985448,
@@ -139,7 +150,8 @@
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto.",
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más."
-  ]
+  ],
+  "output": "codigo/resultados/starobinsky/PT_k.csv::ratio_UG_over_RG (primera fila)"
  },
  "staro_ratio_equal_k_last": {
   "value": 0.796285608092113,
@@ -151,7 +163,8 @@
    "Mismas condiciones iniciales en RG y UG (phi_i, phidot_i, H_i), lo que fija Lambda_0 = -Q_i: decisión del usuario; alternativa razonable: Lambda_0 = 0 con H_i distinto.",
    "Q(N) = Q_i exp(-gamma N), Q_i/V_i = 0.1, gamma = 0.1: prescripción fenomenológica que propuse yo y el usuario aceptó sin criterio propio; alternativas: otras formas de Q(N) o Q(phi).",
    "Duración de UG fijada en N_f = 100 e-folds (valor que aparece en A2, escenario 1); RG usa el mismo phi_i y dura más."
-  ]
+  ],
+  "output": "codigo/resultados/starobinsky/PT_k.csv::ratio_UG_over_RG (última fila)"
  },
  "check_deSitter_worst_rel_err": {
   "value": 8.708398464563061e-07,
@@ -359,7 +372,8 @@
   "from_library": "sympy 1.14.0",
   "choices": [
    "Solo primer orden; el segundo orden del sector tensorial y la equivalencia perturbativa UG=RG con V_eff no están verificados simbólicamente."
-  ]
+  ],
+  "output": "sin archivo de salida: se recalcula al generar este registro (codigo/symbolic_checks.py::check_tt_equation)"
  },
  "symbolic_divergence_identity_passed": {
   "value": true,
@@ -369,7 +383,8 @@
   "from_library": "sympy 1.14.0",
   "choices": [
    "Solo primer orden; el segundo orden del sector tensorial y la equivalencia perturbativa UG=RG con V_eff no están verificados simbólicamente."
-  ]
+  ],
+  "output": "sin archivo de salida: se recalcula al generar este registro (codigo/symbolic_checks.py::check_divergence_identity)"
  },
  "symbolic_background_closure_passed": {
   "value": true,
@@ -379,7 +394,8 @@
   "from_library": "sympy 1.14.0",
   "choices": [
    "Solo primer orden; el segundo orden del sector tensorial y la equivalencia perturbativa UG=RG con V_eff no están verificados simbólicamente."
-  ]
+  ],
+  "output": "sin archivo de salida: se recalcula al generar este registro (codigo/symbolic_checks.py::check_background_closure)"
  },
  "symbolic_dQ_constraint_passed": {
   "value": true,
@@ -389,7 +405,8 @@
   "from_library": "sympy 1.14.0",
   "choices": [
    "Solo primer orden; el segundo orden del sector tensorial y la equivalencia perturbativa UG=RG con V_eff no están verificados simbólicamente."
-  ]
+  ],
+  "output": "sin archivo de salida: se recalcula al generar este registro (codigo/symbolic_checks.py::check_dQ_constraint)"
  },
  "leon_A_s_A2_Nstar57": {
   "value": 2.121604922109299e-09,
@@ -401,7 +418,8 @@
    "Modelo de arXiv:2202.04029 y arXiv:2307.06329: radiación pura, Lambda_* = 0, dQ = 0, sin inflatón; decisión del usuario (2026-09-21).",
    "Escenario 1 de A2 con N_f = 100, rho_end = 1e-11 M_P^4, gamma = 2.02 (valores de A2); el escenario 2 (N_f ~ 370) no se analiza.",
    "Sector escalar NO derivado: A_s y r usan la fórmula de A2 (H^2/8 pi^2 eps1); las alternativas (A1 con 3^{3/2}; 1/c_s) se reportan aparte."
-  ]
+  ],
+  "output": "codigo/resultados/leon/comparacion.json::rows[scenario=1: eps1=(1+Nf-N)^-g, g=2.02, N_star=57].A_s_A2"
  },
  "leon_A_s_A1_Nstar57": {
   "value": 1.102418255604455e-08,
@@ -413,7 +431,8 @@
    "Modelo de arXiv:2202.04029 y arXiv:2307.06329: radiación pura, Lambda_* = 0, dQ = 0, sin inflatón; decisión del usuario (2026-09-21).",
    "Escenario 1 de A2 con N_f = 100, rho_end = 1e-11 M_P^4, gamma = 2.02 (valores de A2); el escenario 2 (N_f ~ 370) no se analiza.",
    "Sector escalar NO derivado: A_s y r usan la fórmula de A2 (H^2/8 pi^2 eps1); las alternativas (A1 con 3^{3/2}; 1/c_s) se reportan aparte."
-  ]
+  ],
+  "output": "codigo/resultados/leon/comparacion.json::rows[scenario=1: eps1=(1+Nf-N)^-g, g=2.02, N_star=57].A_s_A1"
  },
  "leon_r_A2_Nstar57": {
   "value": 0.004384600586610843,
@@ -425,7 +444,8 @@
    "Modelo de arXiv:2202.04029 y arXiv:2307.06329: radiación pura, Lambda_* = 0, dQ = 0, sin inflatón; decisión del usuario (2026-09-21).",
    "Escenario 1 de A2 con N_f = 100, rho_end = 1e-11 M_P^4, gamma = 2.02 (valores de A2); el escenario 2 (N_f ~ 370) no se analiza.",
    "Sector escalar NO derivado: A_s y r usan la fórmula de A2 (H^2/8 pi^2 eps1); las alternativas (A1 con 3^{3/2}; 1/c_s) se reportan aparte."
-  ]
+  ],
+  "output": "codigo/resultados/leon/comparacion.json::rows[scenario=1: eps1=(1+Nf-N)^-g, g=2.02, N_star=57].r_A2"
  },
  "leon_P_T_Nstar57": {
   "value": 9.302390186036886e-12,
@@ -437,7 +457,8 @@
    "Modelo de arXiv:2202.04029 y arXiv:2307.06329: radiación pura, Lambda_* = 0, dQ = 0, sin inflatón; decisión del usuario (2026-09-21).",
    "Escenario 1 de A2 con N_f = 100, rho_end = 1e-11 M_P^4, gamma = 2.02 (valores de A2); el escenario 2 (N_f ~ 370) no se analiza.",
    "Sector escalar NO derivado: A_s y r usan la fórmula de A2 (H^2/8 pi^2 eps1); las alternativas (A1 con 3^{3/2}; 1/c_s) se reportan aparte."
-  ]
+  ],
+  "output": "codigo/resultados/leon/comparacion.json::rows[scenario=1: eps1=(1+Nf-N)^-g, g=2.02, N_star=57].P_T"
  },
  "leon_nT_Nstar57": {
   "value": -0.0005536152642378056,
@@ -449,7 +470,8 @@
    "Modelo de arXiv:2202.04029 y arXiv:2307.06329: radiación pura, Lambda_* = 0, dQ = 0, sin inflatón; decisión del usuario (2026-09-21).",
    "Escenario 1 de A2 con N_f = 100, rho_end = 1e-11 M_P^4, gamma = 2.02 (valores de A2); el escenario 2 (N_f ~ 370) no se analiza.",
    "Sector escalar NO derivado: A_s y r usan la fórmula de A2 (H^2/8 pi^2 eps1); las alternativas (A1 con 3^{3/2}; 1/c_s) se reportan aparte."
-  ]
+  ],
+  "output": "codigo/resultados/leon/comparacion.json::rows[scenario=1: eps1=(1+Nf-N)^-g, g=2.02, N_star=57].n_T"
  },
  "leon_As_gamma1p5_Nstar60": {
   "value": 1.3160392649367098e-09,
@@ -461,7 +483,8 @@
    "Modelo de arXiv:2202.04029 y arXiv:2307.06329: radiación pura, Lambda_* = 0, dQ = 0, sin inflatón; decisión del usuario (2026-09-21).",
    "Escenario 1 de A2 con N_f = 100, rho_end = 1e-11 M_P^4, gamma = 2.02 (valores de A2); el escenario 2 (N_f ~ 370) no se analiza.",
    "Sector escalar NO derivado: A_s y r usan la fórmula de A2 (H^2/8 pi^2 eps1); las alternativas (A1 con 3^{3/2}; 1/c_s) se reportan aparte."
-  ]
+  ],
+  "output": "codigo/resultados/leon/comparacion.json::rows[scenario=1: eps1=(1+Nf-N)^-g, g=1.5, N_star=60].A_s_A2"
  },
  "leon_RGrec_max_dlnH": {
   "value": 8.449489286022072e-07,
@@ -511,7 +534,8 @@
   "from_library": "A2 Sec. III.C",
   "choices": [
    "Criterio original |offset| <= 10% FALLÓ; se reemplazó por criterio de forma (3%) y el offset pasó a ser resultado (ver PROVENANCE sec. 14)."
-  ]
+  ],
+  "output": "codigo/resultados/leon/checks.json::checks[id=CL7].details.quadratic.offset_rel_N60"
  },
  "leon_mapping_offset_starobinsky_Nstar60": {
   "value": 0.228995457650649,
@@ -521,7 +545,8 @@
   "from_library": "A2 Sec. III.C",
   "choices": [
    "Ídem: el criterio original de 10% falló."
-  ]
+  ],
+  "output": "codigo/resultados/leon/checks.json::checks[id=CL7].details.starobinsky.offset_rel_N60"
  },
  "control_quad_C1_1_rel_err_k_1000": {
   "value": -8.708398304690945e-07,
@@ -45307,7 +45332,7 @@
  "dataset_fig10_leon_PT_As": {
   "value": {
    "path": "provenance/datasets/fig10_leon_PT_As.json.gz",
-   "sha256": "a372f87fa5d596379840deb5f27780684643ce8ea7ce46e8c08c388126eea447",
+   "sha256": "9af7d05377bb8cd9df4bfc5436bcad20ede7ecb938b92c96957a21cd3d9df591",
    "axes": 2,
    "points": 63
   },
@@ -45346,7 +45371,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45360,7 +45385,7 @@
  "dataset_fig1_PT_k_RG_vs_UG": {
   "value": {
    "path": "provenance/datasets/fig1_PT_k_RG_vs_UG.json.gz",
-   "sha256": "c282db60248d1d1b7fe0d53167755f683dc9cfa59a6200d52bf73dea3016ad5b",
+   "sha256": "9664683438a69e5c78a696d91a5282525468b9393f8c2d272a43eb06fc745f8c",
    "axes": 3,
    "points": 134
   },
@@ -45399,7 +45424,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45413,7 +45438,7 @@
  "dataset_fig2_convergencia": {
   "value": {
    "path": "provenance/datasets/fig2_convergencia.json.gz",
-   "sha256": "532bcd64381c48af44461b3d55e1fa0a305d05837432828ab5f4daca42e178eb",
+   "sha256": "51b7fecf3be4a075c0f40d2e5cd541e51070b697865b6c398c936aa7eda05e48",
    "axes": 5,
    "points": 32
   },
@@ -45452,7 +45477,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45466,7 +45491,7 @@
  "dataset_fig3_limite_estandar": {
   "value": {
    "path": "provenance/datasets/fig3_limite_estandar.json.gz",
-   "sha256": "2d584db0f8922ba199843359e81303f3f0d026c7c32c0ee108316a9d7c9e1b69",
+   "sha256": "b04e296a32ab09b2b25ecc52e662fbd88be59582d161924191e98b3307fa4cd0",
    "axes": 2,
    "points": 46
   },
@@ -45505,7 +45530,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45519,7 +45544,7 @@
  "dataset_fig4_fondo": {
   "value": {
    "path": "provenance/datasets/fig4_fondo.json.gz",
-   "sha256": "bd67fdb7f00377378bd85b8178589f4f80ae6fb0aeb59a5c2a410d5ab218e526",
+   "sha256": "944c80d01d0238481799d3e26f43673fe0719ca9e792c36b76d55fe3b1fdf2df",
    "axes": 4,
    "points": 27010
   },
@@ -45558,7 +45583,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45572,7 +45597,7 @@
  "dataset_fig5_modo": {
   "value": {
    "path": "provenance/datasets/fig5_modo.json.gz",
-   "sha256": "3c1c8048b1161230bc56fe85bc31d095ba0a8ce31c8123857fae83ab445d95b9",
+   "sha256": "c7e66ee8c7746c0cc35729ca60079d4e18d5f14087f06202d608cb8801bd6932",
    "axes": 2,
    "points": 17327
   },
@@ -45611,7 +45636,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45625,7 +45650,7 @@
  "dataset_fig6_fondo_starobinsky": {
   "value": {
    "path": "provenance/datasets/fig6_fondo_starobinsky.json.gz",
-   "sha256": "098e9523ef86f185891dcc21708de36aff09d5d8828977828b85cd3444fd6dbb",
+   "sha256": "9b606f84319199b58226f8ae8435be99ef7a8a8812c750af12b153e49471bcf3",
    "axes": 4,
    "points": 28006
   },
@@ -45664,7 +45689,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45678,7 +45703,7 @@
  "dataset_fig7_igual_k_potenciales": {
   "value": {
    "path": "provenance/datasets/fig7_igual_k_potenciales.json.gz",
-   "sha256": "f251463c09c0706f18792accfe13df6bc2e0388caca0cc0e44d7104f4ab81d85",
+   "sha256": "ce67e7dc96870d656aa22d7b4a80df6ee8cdb78f96f8b78a1baa534d7b5131c5",
    "axes": 4,
    "points": 244
   },
@@ -45717,7 +45742,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45731,7 +45756,7 @@
  "dataset_fig8_igual_Nstar": {
   "value": {
    "path": "provenance/datasets/fig8_igual_Nstar.json.gz",
-   "sha256": "4ccc8412e3b058da1df1d1035a3e748b2161051acce0fb0ee980cbd0d6ddece5",
+   "sha256": "c021b1d1d27988adc16649703a5efd6728e59e4f40bba94ee26fa2a92f0020f2",
    "axes": 3,
    "points": 26
   },
@@ -45770,7 +45795,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45784,7 +45809,7 @@
  "dataset_fig9_fondo_leon": {
   "value": {
    "path": "provenance/datasets/fig9_fondo_leon.json.gz",
-   "sha256": "c8c589432b6729dfa65eda12f049c1a9a51f4a811662cebcbb24d7e986812cd7",
+   "sha256": "9ab26e937f40076434fb7c89fa20f50e33335fcf95994d793ec6496dc8f20539",
    "axes": 3,
    "points": 120008
   },
@@ -45823,7 +45848,7 @@
    "codigo/make_figures_leon.py": "a326987f56ca54aa5e996bbec7fd5dc93c8fd8c1ac834cb0f691d2344b473a10",
    "codigo/make_figures_potenciales.py": "609f6f0bdf9be04730652c431dd58ce3981fa8adc68914ade8628cc859fdf783",
    "codigo/make_notebook.py": "40df4ee9d11c80420546969e0ffe08b2e98fbd4ac2973646211da3b9c3071ddc",
-   "codigo/make_provenance_numbers.py": "4c1ba982ff0996015146a79ec290a8627c7404970cb6a8d5eff3d0e5d7122e79",
+   "codigo/make_provenance_numbers.py": "b2a3e2d38e818c472e317e9804be89e5b8f7d0dbb4ed1768442fa548fe21f60b",
    "codigo/make_report_figures.py": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
    "codigo/modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
    "codigo/run_leon.py": "78e0f6092e4fab46f612b01becca6fe63b0b9a9e907511f63572b205d98c867c",
@@ -45938,7 +45963,8 @@
   "choices": [
    "8 extremos, 8 índices a N*=50,60; no cubre toda la tabla de radiación con Q",
    "Criterios exploratorios conservados de la sesión anterior: 1e-5 relativo y 2e-5 absoluto"
-  ]
+  ],
+  "output": "codigo/resultados/resolution_checks.json::worst_edge"
  },
  "resolution_worst_tilt": {
   "value": 6.742144447284548e-07,
@@ -45949,7 +45975,8 @@
   "choices": [
    "8 extremos, 8 índices a N*=50,60; no cubre toda la tabla de radiación con Q",
    "Criterios exploratorios conservados de la sesión anterior: 1e-5 relativo y 2e-5 absoluto"
-  ]
+  ],
+  "output": "codigo/resultados/resolution_checks.json::worst_tilt"
  },
  "resolution_edge_tolerance": {
   "value": 1e-05,
@@ -45960,7 +45987,8 @@
   "choices": [
    "8 extremos, 8 índices a N*=50,60; no cubre toda la tabla de radiación con Q",
    "Criterios exploratorios conservados de la sesión anterior: 1e-5 relativo y 2e-5 absoluto"
-  ]
+  ],
+  "output": "codigo/resultados/resolution_checks.json::edge_tolerance"
  },
  "resolution_tilt_absolute_tolerance": {
   "value": 2e-05,
@@ -45971,6 +45999,7 @@
   "choices": [
    "8 extremos, 8 índices a N*=50,60; no cubre toda la tabla de radiación con Q",
    "Criterios exploratorios conservados de la sesión anterior: 1e-5 relativo y 2e-5 absoluto"
-  ]
+  ],
+  "output": "codigo/resultados/resolution_checks.json::tilt_absolute_tolerance"
  }
 }

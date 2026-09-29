@@ -48,7 +48,7 @@ code{background:#f4f4f4;padding:.05em .3em;font-size:.88em} a{color:#1f5fb0}
 
 <h2>Reproducir</h2>
 <p>Seguir <code>REPRODUCCION.md</code> en la raíz del repositorio para instalar el entorno y ejecutar el notebook. Con ese entorno activado:</p>
-<pre><code>make all PY=python  # resultados → 47 pruebas → PDF → docs</code></pre>
+<pre><code>make all PY="$PWD/.venv/bin/python"  # resultados → 47 pruebas → PDF → docs</code></pre>
 <p>Las cifras escritas a mano en esta página y en el paper no se regeneran: <code>provenance/numbers.json</code> es la fuente.</p>
 <p><b>Alcance del validador.</b> <code>validate_provenance.py</code> realiza un chequeo estructural de campos, claves y existencia de archivos/funciones. No ejecuta productores ni certifica la verdad de las afirmaciones o la cobertura del HTML/PDF. Las citas textuales no se verifican. El registro incluye controles, tablas, diagnósticos y datasets completos.</p>
 <p>Procedencia: <code>provenance/numbers.json</code> (valores, entradas, referencias y datasets), <code>provenance/claims.yaml</code> (24 afirmaciones, 10 figuras), <code>provenance/PROVENANCE.md</code>.</p>

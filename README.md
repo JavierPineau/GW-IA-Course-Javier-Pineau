@@ -11,7 +11,7 @@ Trabajo final del curso GW IA. **Pregunta:** ¿cambia el espectro de potencia te
 - Derivación analítica (apunte ampliado): [`derivation/derivation.pdf`](derivation/derivation.pdf)
 
 ## Para máquinas: reproducir
-El procedimiento único y vigente está en [REPRODUCCION.md](REPRODUCCION.md): creación del entorno, reproducción completa y ejecución del notebook. Desde el entorno activado, `make all PY=python` regenera resultados, ejecuta **47 pruebas**, compila los PDF y actualiza `docs/`.
+El procedimiento único y vigente está en [REPRODUCCION.md](REPRODUCCION.md): creación del entorno, reproducción completa y ejecución del notebook. Con el entorno creado, `make all PY="$PWD/.venv/bin/python"` regenera resultados, ejecuta **47 pruebas**, compila los PDF y actualiza `docs/`. Un agente sin historia reprodujo todo desde un clon de GitHub siguiendo solo estas instrucciones: `validacion/prueba_agente_nuevo.md`.
 
 Los comandos individuales que escriben `codigo/resultados/` pueden invalidar los hashes hasta regenerar las figuras y la procedencia. Las versiones exactas con las que se verificó la reproducción están en `entorno_probado.txt`, y el registro de esa verificación en `validacion/`.
 

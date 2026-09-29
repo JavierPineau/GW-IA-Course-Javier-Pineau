@@ -117,6 +117,34 @@ def build():
                                                     "A2 Sec. III.C", ["Criterio original |offset| <= 10% FALLÓ; se reemplazó por criterio de forma (3%) y el offset pasó a ser resultado (ver PROVENANCE sec. 14)."])
     n["leon_mapping_offset_starobinsky_Nstar60"] = N(map_staro["offset_rel_N60"], "ídem para Starobinsky", "codigo/checks_leon.py::check_slowroll_map_vs_rg", "ídem", "A2 Sec. III.C",
                                                      ["Ídem: el criterio original de 10% falló."])
+    # Dónde está guardado cada valor (archivo::selector), para ubicarlo sin leer el código productor.
+    R = "codigo/resultados/"
+    L57 = f"{R}leon/comparacion.json::rows[scenario={r57['scenario']}, N_star=57]"
+    out = {"quad_phi_i": R + "checks.json::meta.phi_i", "quad_Nend_RG": R + "checks.json::meta.N_end_RG",
+           "quad_ratio_equal_k_first": R + "PT_k.csv::ratio_UG_over_RG (primera fila)",
+           "quad_ratio_equal_k_last": R + "PT_k.csv::ratio_UG_over_RG (última fila)",
+           "staro_phi_i": R + "starobinsky/checks.json::meta.phi_i", "staro_Nend_RG": R + "starobinsky/checks.json::meta.N_end_RG",
+           "staro_M_calibrated": "codigo/config.py::M_STAROBINSKY (entrada, no salida)",
+           "staro_ratio_equal_k_first": R + "starobinsky/PT_k.csv::ratio_UG_over_RG (primera fila)",
+           "staro_ratio_equal_k_last": R + "starobinsky/PT_k.csv::ratio_UG_over_RG (última fila)",
+           "check_deSitter_worst_rel_err": R + "checks.json::checks[id=C1.1].worst",
+           "check_UG_gamma0_vs_RG": R + "checks.json::checks[id=C3.1].worst",
+           "check_independent_integrator": R + "checks.json::checks[id=C3.3].worst",
+           "check_signal_over_noise_quad": R + "checks.json::checks[id=C3.4].details.signal_over_noise",
+           "leon_A_s_A2_Nstar57": L57 + ".A_s_A2", "leon_A_s_A1_Nstar57": L57 + ".A_s_A1", "leon_r_A2_Nstar57": L57 + ".r_A2",
+           "leon_P_T_Nstar57": L57 + ".P_T", "leon_nT_Nstar57": L57 + ".n_T",
+           "leon_As_gamma1p5_Nstar60": f"{R}leon/comparacion.json::rows[scenario={g15['scenario']}, N_star=60].A_s_A2",
+           "leon_RGrec_max_dlnH": R + "leon/checks.json::checks[id=CL4].details.max_abs_dlnH",
+           "leon_mapping_offset_quadratic_Nstar60": R + "leon/checks.json::checks[id=CL7].details.quadratic.offset_rel_N60",
+           "leon_mapping_offset_starobinsky_Nstar60": R + "leon/checks.json::checks[id=CL7].details.starobinsky.offset_rel_N60"}
+    for pot in ("quadratic", "starobinsky"):
+        for ns in (50.0, 60.0):
+            out[f"{'quad' if pot == 'quadratic' else 'staro'}_ratio_equal_Nstar_{ns:g}"] = \
+                f"{R}comparacion_N_star.json::rows[potential={pot}, model=UG, N_star={ns:g}].PT_UG_over_RG"
+    for k in sym:
+        out[f"symbolic_{k.replace('check_', '')}_passed"] = f"sin archivo de salida: se recalcula al generar este registro (codigo/symbolic_checks.py::{k})"
+    for k, v in out.items():
+        n[k]["output"] = v
     from provenance_controls import build_control_entries
     n.update(build_control_entries())
     from provenance_tables import build_table_entries
@@ -138,6 +166,7 @@ def build():
             "resultados/resolution_checks.json::" + field,
             choices=["8 extremos, 8 índices a N*=50,60; no cubre toda la tabla de radiación con Q",
                      "Criterios exploratorios conservados de la sesión anterior: 1e-5 relativo y 2e-5 absoluto"])
+        n["resolution_" + field]["output"] = R + "resolution_checks.json::" + field
     return n
 
 
