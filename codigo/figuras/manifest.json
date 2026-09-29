@@ -1,0 +1,33 @@
+{
+ "script": {
+  "path": "make_figures.py",
+  "sha256": "5e74fa35c54ef34d2b801f094c13e27339ba4b16e89ec1569fe7a6e7cfd5c293"
+ },
+ "inputs": {
+  "PT_k.npz": "45ee36120a371b00844be9dae63f249af72435afff3ad4b39491993bfd5289d7",
+  "checks.json": "6c496f4c537c04fa9d7b1f70d2a797b429553c775624d9172b6341eac332389c"
+ },
+ "versions": {
+  "python": "3.12.3",
+  "numpy": "1.26.4",
+  "matplotlib": "3.9.2"
+ },
+ "figures": {
+  "fig_pt_comparison": {
+   "fig1_PT_k_RG_vs_UG.png": "08c0ef78ba1980f427aa6f897d43af992380abe2a13f712467dc83c6429702a2",
+   "fig1_PT_k_RG_vs_UG.pdf": "d7c318939a792c6b70bf09e4bbe441e063f4261e7340a991811cd0adcd0f7414",
+   "fig1_PT_k_RG_vs_UG.csv": "45bd67e2f51e7b09bd240d5e74a51fdb13a1b60381c7d0bc4486aaeef62988c2"
+  },
+  "fig_convergence": {
+   "fig2_convergencia.png": "81acc77f113e1d74565777de328c5f8cd0fad5a09bfb8e923d819f78a350f9d8",
+   "fig2_convergencia.pdf": "aee2dfcb54eebed75e36dd347c6f093bf2949f00d407f76b0345a1d0c1129586",
+   "fig2_convergencia.csv": "3a24ad4d7b89c4ead372b0a157316eb4d8d375f3f93a081fb0d1211148fb54c7"
+  },
+  "fig_standard_limit": {
+   "fig3_limite_estandar.png": "181f82726fda06bb8ac570f4920d315def7d3dbc07fb0428a509cb6834205bb3",
+   "fig3_limite_estandar.pdf": "f6afdda3681b44a976e619ce709afa98f3cc25b5bb94ace86ac94d5859a1e15b",
+   "fig3a_C1_2_slow_roll.csv": "661fe431044440d75837c80506ba80243ba20b56b4c0d5b2ab5e0be4a7d9e085",
+   "fig3b_C3_4_atribucion.csv": "d3bb6665188f1e2905d1a88c8cf8adfc6c6ee373e81e7f87b027777f0a508c7e"
+  }
+ }
+}

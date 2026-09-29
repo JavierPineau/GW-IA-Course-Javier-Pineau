@@ -1,0 +1,136 @@
+{
+ "rows": [
+  {
+   "potential": "quadratic",
+   "model": "RG",
+   "params": {
+    "potential": "quadratic",
+    "m_phys": 6e-06,
+    "phi_bracket": [
+     17.0,
+     40.0
+    ],
+    "phi_i": 25.386364173387047,
+    "N_f_ug": 100.0,
+    "Q_over_V_i": 0.1,
+    "gamma": 0.1,
+    "ratio_start": 100.0,
+    "ratio_stop": 0.001,
+    "n_k": 40,
+    "rtol_bg": 1e-12,
+    "atol_bg": 1e-14,
+    "rtol_mode": 1e-10,
+    "atol_mode": 1e-12,
+    "n_grid_bg": 20001,
+    "t_max": 1000.0,
+    "workers": 8
+   },
+   "params_source": "codigo/resultados/PT_k.npz",
+   "produced_by": "codigo/background.py::solve_background_rg",
+   "N_min": 0.0,
+   "N_max": 161.83124111716106,
+   "n_grid": 20001,
+   "grid": "malla uniforme en t del integrador, transformada a N",
+   "max_abs_X_over_H2": 1.3322182863313648e-15
+  },
+  {
+   "potential": "quadratic",
+   "model": "UG",
+   "params": {
+    "potential": "quadratic",
+    "m_phys": 6e-06,
+    "phi_bracket": [
+     17.0,
+     40.0
+    ],
+    "phi_i": 25.386364173387047,
+    "N_f_ug": 100.0,
+    "Q_over_V_i": 0.1,
+    "gamma": 0.1,
+    "ratio_start": 100.0,
+    "ratio_stop": 0.001,
+    "n_k": 40,
+    "rtol_bg": 1e-12,
+    "atol_bg": 1e-14,
+    "rtol_mode": 1e-10,
+    "atol_mode": 1e-12,
+    "n_grid_bg": 20001,
+    "t_max": 1000.0,
+    "workers": 8
+   },
+   "params_source": "codigo/resultados/PT_k.npz",
+   "produced_by": "codigo/background.py::solve_background_ug",
+   "N_min": 0.0,
+   "N_max": 99.99999999999945,
+   "n_grid": 20001,
+   "grid": "malla uniforme en t del integrador, transformada a N",
+   "max_abs_X_over_H2": 4.155116841880639e-15
+  },
+  {
+   "potential": "starobinsky",
+   "model": "RG",
+   "params": {
+    "potential": "starobinsky",
+    "m_phys": 1.14e-05,
+    "phi_bracket": [
+     5.0,
+     9.0
+    ],
+    "phi_i": 7.6604436259549304,
+    "N_f_ug": 100.0,
+    "Q_over_V_i": 0.1,
+    "gamma": 0.1,
+    "ratio_start": 100.0,
+    "ratio_stop": 0.001,
+    "n_k": 40,
+    "rtol_bg": 1e-12,
+    "atol_bg": 1e-14,
+    "rtol_mode": 1e-10,
+    "atol_mode": 1e-12,
+    "n_grid_bg": 20001,
+    "t_max": 10000.0,
+    "workers": 8
+   },
+   "params_source": "codigo/resultados/starobinsky/PT_k.npz",
+   "produced_by": "codigo/background.py::solve_background_rg",
+   "N_min": 0.0,
+   "N_max": 386.7451358742514,
+   "n_grid": 20001,
+   "grid": "malla uniforme en t del integrador, transformada a N",
+   "max_abs_X_over_H2": 1.2100298250867263e-15
+  },
+  {
+   "potential": "starobinsky",
+   "model": "UG",
+   "params": {
+    "potential": "starobinsky",
+    "m_phys": 1.14e-05,
+    "phi_bracket": [
+     5.0,
+     9.0
+    ],
+    "phi_i": 7.6604436259549304,
+    "N_f_ug": 100.0,
+    "Q_over_V_i": 0.1,
+    "gamma": 0.1,
+    "ratio_start": 100.0,
+    "ratio_stop": 0.001,
+    "n_k": 40,
+    "rtol_bg": 1e-12,
+    "atol_bg": 1e-14,
+    "rtol_mode": 1e-10,
+    "atol_mode": 1e-12,
+    "n_grid_bg": 20001,
+    "t_max": 10000.0,
+    "workers": 8
+   },
+   "params_source": "codigo/resultados/starobinsky/PT_k.npz",
+   "produced_by": "codigo/background.py::solve_background_ug",
+   "N_min": 0.0,
+   "N_max": 99.99999999851525,
+   "n_grid": 20001,
+   "grid": "malla uniforme en t del integrador, transformada a N",
+   "max_abs_X_over_H2": 1.7370437522905563e-15
+  }
+ ]
+}

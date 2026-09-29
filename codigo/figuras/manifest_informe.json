@@ -1,0 +1,32 @@
+{
+ "script": "f444580bf9605c3c27ca36563cae80f00c1e47c671eb173a04c734effafa9c52",
+ "deps": {
+  "config.py": "951e0fc6fc39c193524a231e664e881558c69ef411fc09a51dab959d9e7b9394",
+  "background.py": "e26412288a3a128150aae0def83093d1fc406aef2462404462b5dddc53b2e767",
+  "modes.py": "244f5007b1753bce446119d95ef2aa6632c70545e6790be8606cf6b7b0d359f5",
+  "make_figures.py": "5e74fa35c54ef34d2b801f094c13e27339ba4b16e89ec1569fe7a6e7cfd5c293"
+ },
+ "versions": {
+  "python": "3.12.3",
+  "numpy": "1.26.4",
+  "matplotlib": "3.9.2"
+ },
+ "params": {
+  "phi_i": 25.386364173387047,
+  "Q_over_V_i": 0.1,
+  "gamma": 0.1,
+  "N_f_ug": 100.0
+ },
+ "figures": {
+  "fig_fondo": {
+   "fig4_fondo.png": "71601833dc9076c3a38ed6cf0c1f04fdbd97e1d8b1ff66c451a043446fd283d6",
+   "fig4_fondo.pdf": "e7f2ce1d1b7812fa33157ad3d6b04e0da2b70ce9fc4c16356f03177a830820ff",
+   "fig4_fondo.csv": "e70299240844fa65f5f27a60ac8013904db4c41e18a33d957dbe826bc4ae2185"
+  },
+  "fig_modo": {
+   "fig5_modo.png": "b845e3daa61b50305b155dcc62f4c5e198edb5d84057b2a25004d2de2210f909",
+   "fig5_modo.pdf": "8371623618783744b935b3d48e9776ec9b12bab20067c227a37a89942d538c1c",
+   "fig5_modo.csv": "96205b8faac43300c408cee6abd0231a0705b16d15980838cb3a74a87620d069"
+  }
+ }
+}
