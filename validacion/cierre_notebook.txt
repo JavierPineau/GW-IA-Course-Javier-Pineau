@@ -1,2 +1,0 @@
-[NbConvertApp] Converting notebook explorador_PT.ipynb to notebook
-[NbConvertApp] Writing 956978 bytes to /tmp/explorador_PT_venv_20260927.ipynb
